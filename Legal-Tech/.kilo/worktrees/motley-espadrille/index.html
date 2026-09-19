@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LegalBridge — Bridging Citizens to Justice</title>
+<meta name="description" content="LegalBridge is a Bangladesh-focused digital legal-aid prototype connecting citizens to safe, accessible, human-centred legal assistance.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="vendor/bootstrap-icons/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a href="#main" class="lb-skip-link" data-i18n="skip_link">Skip to main content</a>
+
+<!-- ============================= NAVBAR ============================= -->
+<header class="lb-header">
+  <nav class="navbar navbar-expand-lg h-100" aria-label="Primary">
+    <div class="container">
+      <a class="lb-brand" href="index.html">
+        <span class="lb-brand-mark"><span class="lb-knot"><i class="bi bi-shield-check"></i></span>LegalBridge</span>
+        <span class="lb-brand-tag" data-i18n="brand_tag">Bridging Citizens to Justice.</span>
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#lbNavCollapse" aria-controls="lbNavCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="bi bi-list fs-2"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="lbNavCollapse">
+        <ul class="navbar-nav lb-nav mx-lg-auto my-3 my-lg-0 gap-lg-1">
+          <li class="nav-item"><a class="nav-link" data-page="index.html" href="index.html" data-i18n="nav_home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="dashboard.html" href="index.html#citizen-access" data-i18n="nav_citizen_access">Citizen Access</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="intake.html" href="intake.html" data-i18n="nav_ai_intake">AI Intake</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="safety.html" href="safety.html" data-i18n="nav_safety">Safety</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="dashboard.html" href="dashboard.html" data-i18n="nav_dashboard">DLAO Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="mediation.html" href="mediation.html" data-i18n="nav_mediation">Mediation</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="case.html" href="case.html" data-i18n="nav_case">Case Record</a></li>
+        </ul>
+        <div class="d-flex align-items-center gap-2 lb-header-actions flex-wrap">
+          <button class="lb-icon-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#a11yOffcanvas" aria-label="Open accessibility settings" data-bs-toggle-tooltip title="Accessibility">
+            <i class="bi bi-universal-access-circle"></i>
+          </button>
+          <button class="btn btn-lb-ghost" id="langToggle" type="button" aria-label="Switch language" lang="bn">বাংলা</button>
+          <button class="btn btn-lb-outline" type="button" data-bs-toggle="modal" data-bs-target="#emergencyModal">
+            <i class="bi bi-telephone-fill me-1"></i><span data-i18n="emergency_help">Emergency Help</span>
+          </button>
+          <a class="lb-icon-btn" href="case.html" aria-label="Profile"><i class="bi bi-person-circle"></i></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- ============================= HERO ============================= -->
+  <section class="lb-hero">
+    <div class="container">
+      <div class="row align-items-center gy-5">
+        <div class="col-lg-6">
+          <span class="lb-hero-badge"><i class="bi bi-flag-fill"></i><span data-i18n="hero_badge">Digital Legal Aid • Bangladesh</span></span>
+          <h1 data-i18n="hero_h1">Legal help should be within everyone's reach.</h1>
+          <p class="lead" data-i18n="hero_lead">LegalBridge connects citizens to safe, accessible and human-centred legal assistance — even when technology, mobility or accessibility becomes a barrier.</p>
+          <div class="d-flex flex-wrap gap-3 mt-4">
+            <a href="intake.html" class="btn btn-lb-primary btn-lg-touch"><i class="bi bi-mic-fill me-2"></i><span data-i18n="btn_get_support">Get Legal Support</span></a>
+            <button class="btn btn-lb-outline btn-lg-touch" type="button" data-bs-toggle="modal" data-bs-target="#emergencyModal"><i class="bi bi-telephone-fill me-2"></i><span data-i18n="btn_call">Call 16699</span></button>
+          </div>
+          <div class="lb-trust-line"><i class="bi bi-people-fill"></i><span data-i18n="trust_line">AI assists. Human officers decide.</span></div>
+        </div>
+        <div class="col-lg-6">
+          <div class="lb-pathway lb-reveal">
+            <div class="lb-pathway-track">
+              <p class="lb-kicker mb-3" data-i18n="pathway_kicker">A citizen's path through LegalBridge</p>
+              <div class="lb-pathway-nodes">
+                <div class="lb-pathway-node">
+                  <div class="lb-pathway-dot"><i class="bi bi-person"></i></div>
+                  <div class="lb-pathway-body"><strong data-i18n="node1_title">Citizen</strong><span data-i18n="node1_desc">Reaches out directly, or through a trusted proxy</span></div>
+                </div>
+                <div class="lb-pathway-node">
+                  <div class="lb-pathway-dot"><i class="bi bi-mic-fill"></i></div>
+                  <div class="lb-pathway-body"><strong data-i18n="node2_title">Voice Intake</strong><span data-i18n="node2_desc">Speaks freely; no forms or typing required</span></div>
+                </div>
+                <div class="lb-pathway-node">
+                  <div class="lb-pathway-dot"><i class="bi bi-shield-check"></i></div>
+                  <div class="lb-pathway-body"><strong data-i18n="node3_title">Safety Screening</strong><span data-i18n="node3_desc">Risk and communication safety assessed first</span></div>
+                </div>
+                <div class="lb-pathway-node is-human">
+                  <div class="lb-pathway-dot"><i class="bi bi-person-badge"></i></div>
+                  <div class="lb-pathway-body"><strong data-i18n="node4_title">Human Officer</strong><span data-i18n="node4_desc">Reviews, verifies, and decides — not the AI</span></div>
+                </div>
+                <div class="lb-pathway-node is-human">
+                  <div class="lb-pathway-dot"><i class="bi bi-balance-scale"></i></div>
+                  <div class="lb-pathway-body"><strong data-i18n="node5_title">Justice</strong><span data-i18n="node5_desc">Legal aid, mediation, or ODR toward an outcome</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= PROBLEM ============================= -->
+  <section class="lb-section lb-bg-raised" id="citizen-access">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-lg-7">
+          <p class="lb-kicker mb-2" data-i18n="problem_kicker">The problem</p>
+          <h2 class="h1" data-i18n="problem_h2">Real barriers stand between citizens and legal protection.</h2>
+        </div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="lb-card lb-feature-card">
+            <div class="lb-icon-tile"><i class="bi bi-signpost-split"></i></div>
+            <h3 data-i18n="problem1_title">Distance</h3>
+            <p data-i18n="problem1_desc">Legal Aid Offices may be difficult to reach.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="lb-card lb-feature-card">
+            <div class="lb-icon-tile"><i class="bi bi-file-earmark-lock"></i></div>
+            <h3 data-i18n="problem2_title">Digital Barriers</h3>
+            <p data-i18n="problem2_desc">Forms, CAPTCHA, OTP and documents can exclude people.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="lb-card lb-feature-card">
+            <div class="lb-icon-tile"><i class="bi bi-exclamation-octagon"></i></div>
+            <h3 data-i18n="problem3_title">Safety</h3>
+            <p data-i18n="problem3_desc">Unsafe communication can put vulnerable applicants at risk.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="lb-card lb-feature-card">
+            <div class="lb-icon-tile"><i class="bi bi-universal-access"></i></div>
+            <h3 data-i18n="problem4_title">Accessibility</h3>
+            <p data-i18n="problem4_desc">Digital access must work for people with disabilities.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= HOW IT WORKS ============================= -->
+  <section class="lb-section">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-lg-7">
+          <p class="lb-kicker mb-2" data-i18n="hiw_kicker">How LegalBridge works</p>
+          <h2 class="h1" data-i18n="hiw_h2">Five steps, from first contact to resolution.</h2>
+        </div>
+      </div>
+      <div class="lb-timeline">
+        <div class="lb-timeline-step">
+          <div class="lb-timeline-num">1</div>
+          <h3 data-i18n="step1_title">Citizen / Proxy</h3>
+          <p data-i18n="step1_desc">Reaches out directly or through someone they trust.</p>
+        </div>
+        <div class="lb-timeline-step">
+          <div class="lb-timeline-num"><i class="bi bi-mic-fill"></i></div>
+          <h3 data-i18n="step2_title">Voice Intake</h3>
+          <p data-i18n="step2_desc">Describes the situation by speaking, not typing.</p>
+        </div>
+        <div class="lb-timeline-step">
+          <div class="lb-timeline-num"><i class="bi bi-shield-check"></i></div>
+          <h3 data-i18n="step3_title">Safety Screening</h3>
+          <p data-i18n="step3_desc">Risk and safe-contact windows are established.</p>
+        </div>
+        <div class="lb-timeline-step">
+          <div class="lb-timeline-num"><i class="bi bi-person-badge"></i></div>
+          <h3 data-i18n="step4_title">Human Review</h3>
+          <p data-i18n="step4_desc">A legal aid officer verifies and takes the decision.</p>
+        </div>
+        <div class="lb-timeline-step">
+          <div class="lb-timeline-num"><i class="bi bi-balance-scale"></i></div>
+          <h3 data-i18n="step5_title">Legal Support / Mediation</h3>
+          <p data-i18n="step5_desc">The citizen is guided toward aid, mediation, or ODR.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= PRINCIPLES ============================= -->
+  <section class="lb-section lb-bg-soft">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-lg-7">
+          <p class="lb-kicker mb-2" data-i18n="principles_kicker">Key principles</p>
+          <h2 class="h1" data-i18n="principles_h2">The rules the product is built around.</h2>
+        </div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <div class="lb-card lb-feature-card">
+            <div class="lb-icon-tile"><i class="bi bi-people"></i></div>
+            <h3 data-i18n="p1_title">AI assists, humans decide</h3>
+            <p data-i18n="p1_desc">Every consequential decision is made by a person, not a model.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="lb-card lb-feature-card">
+            <div class="lb-icon-tile"><i class="bi bi-shield-lock"></i></div>
+            <h3 data-i18n="p2_title">Safety before convenience</h3>
+            <p data-i18n="p2_desc">No contact happens unless it's confirmed safe first.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="lb-card lb-feature-card">
+            <div class="lb-icon-tile"><i class="bi bi-universal-access"></i></div>
+            <h3 data-i18n="p3_title">Accessibility for everyone</h3>
+            <p data-i18n="p3_desc">Voice, phone, and human pathways exist alongside digital ones.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="lb-card lb-feature-card">
+            <div class="lb-icon-tile"><i class="bi bi-clipboard-x"></i></div>
+            <h3 data-i18n="p4_title">Incomplete information ≠ low priority</h3>
+            <p data-i18n="p4_desc">Missing details never automatically reduce a case's urgency.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="lb-card lb-feature-card">
+            <div class="lb-icon-tile"><i class="bi bi-eye-slash"></i></div>
+            <h3 data-i18n="p5_title">Privacy by design</h3>
+            <p data-i18n="p5_desc">Sensitive details are visible only to the roles that need them.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= FEATURED CASE ============================= -->
+  <section class="lb-section">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-lg-7">
+          <p class="lb-kicker mb-2" data-i18n="case_kicker">Featured case · Fictional demo data</p>
+          <h2 class="h1" data-i18n="case_h2">Moyuri's journey through LegalBridge.</h2>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-9">
+          <div class="lb-card lb-case-card">
+            <div class="lb-case-card-head d-flex align-items-center gap-3">
+              <div class="lb-case-avatar">M</div>
+              <div>
+                <div class="fs-4 fw-semibold" style="font-family:var(--font-display);" data-i18n="case_name">Moyuri, 24</div>
+                <div class="opacity-75"><i class="bi bi-geo-alt me-1"></i><span data-i18n="case_location">Kalai, Joypurhat</span></div>
+              </div>
+              <span class="lb-status-badge lb-status-unverified ms-auto"><i class="bi bi-hourglass-split"></i><span data-i18n="case_status">Human verification pending</span></span>
+            </div>
+            <div class="lb-case-card-body">
+              <div class="lb-case-meta-row">
+                <span class="lb-case-meta-label" data-i18n="case_risk_label">Risk level</span>
+                <span class="lb-case-meta-value lb-pill lb-pill-risk-high" data-i18n="case_risk_value">High</span>
+              </div>
+              <div class="lb-case-meta-row">
+                <span class="lb-case-meta-label" data-i18n="case_source_label">Information source</span>
+                <span class="lb-case-meta-value" data-i18n="case_source_value">Third-party — Ripon</span>
+              </div>
+              <div class="lb-case-meta-row">
+                <span class="lb-case-meta-label" data-i18n="case_window_label">Safe contact window</span>
+                <span class="lb-case-meta-value" data-i18n="case_window_value">Friday • approximately 20 minutes</span>
+              </div>
+              <div class="mt-4">
+                <a href="case.html" class="btn btn-lb-primary" data-i18n="case_btn">View Case Journey</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= ACCESSIBILITY ============================= -->
+  <section class="lb-section lb-bg-emerald-mid">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <p class="lb-kicker" style="color:var(--lb-gold-600);" data-i18n="a11y_kicker">Accessibility</p>
+          <h2 class="h1 text-white" data-i18n="a11y_h2">Legal access should not depend on eyesight, internet or digital literacy.</h2>
+          <p class="lb-measure-wide text-white-50" data-i18n="a11y_p">LegalBridge is built voice-first, so that someone like Ripon — who cannot read a form, a CAPTCHA, or an OTP screen — can still report on behalf of someone he cares about.</p>
+        </div>
+        <div class="col-lg-6">
+          <div class="lb-a11y-row">
+            <div class="lb-icon-tile"><i class="bi bi-mic-fill"></i></div>
+            <div><strong data-i18n="a11y_row1_title">Voice-first interaction</strong><div class="text-white-50 small" data-i18n="a11y_row1_desc">Speak instead of typing or filling forms.</div></div>
+          </div>
+          <div class="lb-a11y-row">
+            <div class="lb-icon-tile"><i class="bi bi-volume-up-fill"></i></div>
+            <div><strong data-i18n="a11y_row2_title">Bangla audio guidance</strong><div class="text-white-50 small" data-i18n="a11y_row2_desc">Spoken prompts and confirmations in Bangla.</div></div>
+          </div>
+          <div class="lb-a11y-row">
+            <div class="lb-icon-tile"><i class="bi bi-universal-access"></i></div>
+            <div><strong data-i18n="a11y_row3_title">Accessible navigation</strong><div class="text-white-50 small" data-i18n="a11y_row3_desc">Keyboard, screen-reader and large-control support.</div></div>
+          </div>
+          <div class="lb-a11y-row">
+            <div class="lb-icon-tile"><i class="bi bi-telephone-fill"></i></div>
+            <div><strong data-i18n="a11y_row4_title">Phone-first access</strong><div class="text-white-50 small" data-i18n="a11y_row4_desc">Reachable through a helpline, not only an app.</div></div>
+          </div>
+          <div class="lb-a11y-row">
+            <div class="lb-icon-tile"><i class="bi bi-person-badge"></i></div>
+            <div><strong data-i18n="a11y_row5_title">Human assistance</strong><div class="text-white-50 small" data-i18n="a11y_row5_desc">A person is always reachable behind the interface.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================= FOOTER ============================= -->
+<footer class="lb-footer" style="border-top:1px solid rgba(255,255,255,.14);">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <span class="lb-brand-mark mb-2 d-flex"><span class="lb-knot"><i class="bi bi-shield-check"></i></span>LegalBridge</span>
+        <p class="text-white-50 small mt-3" data-i18n="brand_tag">Bridging Citizens to Justice.</p>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6 data-i18n="footer_product">Product</h6>
+        <ul class="list-unstyled d-flex flex-column gap-2 small">
+          <li><a href="index.html" data-i18n="footer_about">About</a></li>
+          <li><a href="index.html#citizen-access" data-i18n="footer_how">How It Works</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6 data-i18n="footer_trust">Trust</h6>
+        <ul class="list-unstyled d-flex flex-column gap-2 small">
+          <li><a href="case.html#protections" data-i18n="footer_privacy">Privacy</a></li>
+          <li><a href="legal-basis.html" data-i18n="footer_legal_aid">Legal Aid</a></li>
+          <li><a href="tel:16699" data-i18n="footer_contact">Contact (16699)</a></li>
+          <li><button type="button" class="btn btn-link p-0 text-white-50" style="text-decoration:none;" data-bs-toggle="offcanvas" data-bs-target="#a11yOffcanvas" data-i18n="a11y_kicker">Accessibility</button></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h6 data-i18n="footer_scope_title">Prototype scope</h6>
+        <p class="small text-white-50" data-i18n="footer_scope_p">Built for the Legal Tech Hackathon 2026 · Accelerating Digital Legal Aid Services in Bangladesh (ADLASB) · UNDP Bangladesh · Directorate of Bangladesh Legal Aid (DBLA). Prototype only — not a live government service.</p>
+      </div>
+    </div>
+    <p class="lb-disclaimer mb-0" data-i18n="footer_disclaimer">LegalBridge is a prototype concept for a digital legal-aid service. AI-generated information is not a substitute for official legal advice or human legal judgment.</p>
+  </div>
+</footer>
+
+<!-- ============================= EMERGENCY MODAL ============================= -->
+<div class="modal fade" id="emergencyModal" tabindex="-1" aria-labelledby="emergencyModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:var(--lb-radius-lg); border:none;">
+      <div class="modal-header border-0">
+        <h2 class="modal-title h5" id="emergencyModalLabel" data-i18n="modal_title">Need immediate help?</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex flex-column gap-3">
+        <button class="lb-voice-btn" style="background:var(--lb-emerald-50); color:var(--lb-ink-900); border-color:var(--lb-line);" data-lb-emergency-action="call">
+          <i class="bi bi-telephone-fill" style="color:var(--lb-terracotta-700);"></i>
+          <span><span data-i18n="modal_call">Call Legal Aid Helpline</span><br><strong class="fs-5">16699</strong></span>
+        </button>
+        <button class="lb-voice-btn" style="background:var(--lb-emerald-50); color:var(--lb-ink-900); border-color:var(--lb-line);" data-lb-emergency-action="officer">
+          <i class="bi bi-person-badge" style="color:var(--lb-emerald-700);"></i>
+          <span data-i18n="modal_officer">Speak to Human Officer</span>
+        </button>
+        <button class="lb-voice-btn" style="background:var(--lb-emerald-50); color:var(--lb-ink-900); border-color:var(--lb-line);" data-lb-emergency-action="guidance">
+          <i class="bi bi-shield-check" style="color:var(--lb-emerald-700);"></i>
+          <span data-i18n="modal_guidance">Safety Guidance</span>
+        </button>
+        <div class="row g-2 small text-body-secondary">
+          <div class="col-4"><a href="tel:109" class="btn btn-lb-outline w-100 btn-sm">109<br><span style="font-size:.72rem;" data-i18n="modal_109">Women &amp; child abuse</span></a></div>
+          <div class="col-4"><a href="tel:999" class="btn btn-lb-outline w-100 btn-sm">999<br><span style="font-size:.72rem;" data-i18n="modal_999">National emergency</span></a></div>
+          <div class="col-4"><span class="btn btn-lb-outline w-100 btn-sm disabled">OCC<br><span style="font-size:.72rem;" data-i18n="modal_occ">Nearest district hospital</span></span></div>
+        </div>
+        <div class="lb-alert-banner lb-alert-warn mb-0">
+          <i class="bi bi-info-circle-fill fs-5"></i>
+          <p class="mb-0 small" data-i18n="modal_disclaimer">Prototype interaction — not a live helpline connection.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= ACCESSIBILITY OFFCANVAS ============================= -->
+<div class="offcanvas offcanvas-end lb-a11y-panel" tabindex="-1" id="a11yOffcanvas" aria-labelledby="a11yOffcanvasLabel">
+  <div class="offcanvas-header">
+    <h2 class="offcanvas-title h5" id="a11yOffcanvasLabel" data-i18n="a11y_kicker">Accessibility</h2>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="mb-4">
+      <label class="form-label fw-semibold small" data-i18n="oc_text_size">Text size</label>
+      <div class="lb-fontsize-ctrl">
+        <button type="button" id="a11yFontDec" aria-label="Decrease text size">A-</button>
+        <span class="small text-body-secondary" data-i18n="oc_adjust">Adjust</span>
+        <button type="button" id="a11yFontInc" aria-label="Increase text size">A+</button>
+      </div>
+    </div>
+    <div class="form-check form-switch mb-3">
+      <input class="form-check-input" type="checkbox" id="a11yContrast">
+      <label class="form-check-label" for="a11yContrast" data-i18n="oc_contrast">High contrast</label>
+    </div>
+    <div class="form-check form-switch mb-3">
+      <input class="form-check-input" type="checkbox" id="a11yMotion">
+      <label class="form-check-label" for="a11yMotion" data-i18n="oc_motion">Reduced motion</label>
+    </div>
+    <hr class="lb-rule">
+    <p class="small text-body-secondary mb-0"><i class="bi bi-check-circle-fill text-success me-1"></i><span data-i18n="oc_talkback">The Bangla interface on the intake flow has been tested with TalkBack (Android).</span></p>
+    <hr class="lb-rule">
+    <div class="mb-3">
+      <label class="form-label fw-semibold small" data-i18n="oc_voice_mode">Voice mode</label>
+      <p class="small text-body-secondary" data-i18n="oc_voice_mode_desc">Available on the Case Record page for voice-first access.</p>
+      <a href="case.html" class="btn btn-lb-outline btn-sm" data-i18n="oc_open_voice">Open voice mode</a>
+    </div>
+    <div>
+      <label class="form-label fw-semibold small" data-i18n="oc_language">Language</label>
+      <p class="small text-body-secondary" data-i18n="oc_language_desc">Use the বাংলা / English toggle in the top navigation.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Emergency floating action button -->
+<button class="lb-emergency-fab" type="button" data-bs-toggle="modal" data-bs-target="#emergencyModal">
+  <i class="bi bi-telephone-fill"></i><span class="d-none d-sm-inline" data-i18n="emergency_help">Emergency Help</span>
+</button>
+
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

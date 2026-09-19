@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Legal Aid Officer Dashboard — LegalBridge</title>
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="vendor/bootstrap-icons/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a href="#main" class="lb-skip-link">Skip to main content</a>
+
+<header class="lb-header">
+  <nav class="navbar navbar-expand-lg h-100" aria-label="Primary">
+    <div class="container">
+      <a class="lb-brand" href="index.html">
+        <span class="lb-brand-mark"><span class="lb-knot"><i class="bi bi-shield-check"></i></span>LegalBridge</span>
+        <span class="lb-brand-tag">Bridging Citizens to Justice.</span>
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#lbNavCollapse" aria-controls="lbNavCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="bi bi-list fs-2"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="lbNavCollapse">
+        <ul class="navbar-nav lb-nav mx-lg-auto my-3 my-lg-0 gap-lg-1">
+          <li class="nav-item"><a class="nav-link" data-page="index.html" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#citizen-access">Citizen Access</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="intake.html" href="intake.html">AI Intake</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="safety.html" href="safety.html">Safety</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="dashboard.html" href="dashboard.html">DLAO Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="mediation.html" href="mediation.html">Mediation</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="case.html" href="case.html">Case Record</a></li>
+        </ul>
+        <div class="d-flex align-items-center gap-2 lb-header-actions flex-wrap">
+          <button class="lb-icon-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#a11yOffcanvas" aria-label="Open accessibility settings"><i class="bi bi-universal-access-circle"></i></button>
+          <button class="btn btn-lb-ghost" id="langToggle" type="button" aria-label="Switch language" lang="bn">বাংলা</button>
+          <button class="btn btn-lb-outline" type="button" data-bs-toggle="modal" data-bs-target="#emergencyModal"><i class="bi bi-telephone-fill me-1"></i>Emergency Help</button>
+          <a class="lb-icon-btn" href="case.html" aria-label="Profile"><i class="bi bi-person-circle"></i></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="lb-section-tight lb-bg-raised">
+    <div class="container">
+      <p class="lb-kicker mb-2">Step 4 of 5 · Human review</p>
+      <h1 class="h1">Legal Aid Officer Dashboard</h1>
+      <p class="lead lb-measure-wide">A working view for officers reviewing, verifying, and prioritizing cases across districts.</p>
+    </div>
+  </section>
+
+  <section class="lb-section pt-4">
+    <div class="container">
+
+      <div class="lb-legal-basis">
+        <i class="bi bi-bank2"></i>
+        <div><strong>Legal basis:</strong> Final prioritization and assistance decisions rest with the Legal Aid Officer — Section 21Ka(2) of the Legal Aid Services Act, 2000.</div>
+      </div>
+
+      <!-- STATS -->
+      <div class="row g-3 mb-5">
+        <div class="col-6 col-lg-3">
+          <div class="lb-card lb-stat-card">
+            <div class="lb-stat-num">12</div>
+            <div class="lb-stat-label"><i class="bi bi-exclamation-octagon-fill text-danger-emphasis me-1"></i>Urgent Cases</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="lb-card lb-stat-card">
+            <div class="lb-stat-num">28</div>
+            <div class="lb-stat-label"><i class="bi bi-flag-fill me-1" style="color:var(--lb-gold-600);"></i>High Priority</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="lb-card lb-stat-card">
+            <div class="lb-stat-num">17</div>
+            <div class="lb-stat-label"><i class="bi bi-hourglass-split me-1"></i>Pending Verification</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="lb-card lb-stat-card">
+            <div class="lb-stat-num">9</div>
+            <div class="lb-stat-label"><i class="bi bi-people-fill me-1"></i>Mediation</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRIORITY PANEL -->
+      <div class="lb-alert-banner lb-alert-info mb-4">
+        <i class="bi bi-info-circle-fill fs-4"></i>
+        <p class="mb-0 small">Priority recommendation is decision-support only. Final prioritization remains with the Legal Aid Officer.</p>
+      </div>
+
+      <div class="row g-3 mb-5">
+        <div class="col-md-4">
+          <div class="lb-card lb-factor-card">
+            <div class="d-flex justify-content-between align-items-center">
+              <h3 class="h6 mb-0">Immediate Risk</h3>
+              <span class="lb-pill lb-pill-risk-high">High</span>
+            </div>
+            <div class="lb-factor-meter risk-high"><span></span></div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="lb-card lb-factor-card">
+            <div class="d-flex justify-content-between align-items-center">
+              <h3 class="h6 mb-0">Vulnerability</h3>
+              <span class="lb-pill lb-pill-risk-high">High</span>
+            </div>
+            <div class="lb-factor-meter risk-high"><span></span></div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="lb-card lb-factor-card">
+            <div class="d-flex justify-content-between align-items-center">
+              <h3 class="h6 mb-0">Time Sensitivity</h3>
+              <span class="lb-pill lb-pill-risk-high">High</span>
+            </div>
+            <div class="lb-factor-meter risk-high"><span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row align-items-center mb-5">
+        <div class="col-lg-8">
+          <p class="small text-body-secondary mb-0"><i class="bi bi-info-circle me-1"></i>Missing information must not automatically reduce priority. Recommended priority for Moyuri's case: <strong>Urgent Review</strong>.</p>
+        </div>
+        <div class="col-lg-4 text-lg-end mt-3 mt-lg-0">
+          <a href="case.html" class="btn btn-lb-primary" data-priority-review>Review Case <i class="bi bi-arrow-right ms-1"></i></a>
+        </div>
+      </div>
+
+      <!-- CASE TABLE -->
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+        <h2 class="h4 mb-0">Case queue</h2>
+        <div class="d-flex flex-wrap gap-2">
+          <label for="districtFilter" class="visually-hidden">Filter by district</label>
+          <select class="form-select" id="districtFilter" style="max-width:200px;">
+            <option value="">All districts</option>
+          </select>
+          <div class="input-group" style="max-width:320px;">
+            <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
+            <label for="caseSearch" class="visually-hidden">Search cases</label>
+            <input type="search" class="form-control border-start-0" id="caseSearch" placeholder="Search by name, location, type…">
+          </div>
+        </div>
+      </div>
+      <p class="small text-body-secondary mb-3"><i class="bi bi-info-circle me-1"></i>Click a risk, vulnerability, or urgency flag to see the statement it was drawn from. <span class="lb-pill" style="background:var(--lb-terracotta-100); color:var(--lb-terracotta-700); border-color:transparent;">🔴 Escalate</span> marks files untouched for 7+ days.</p>
+
+      <div class="lb-card table-lb-wrap p-0" style="overflow:hidden;">
+        <div class="table-responsive">
+          <table class="table table-lb mb-0">
+            <caption class="visually-hidden">Case queue for legal aid officers</caption>
+            <thead>
+              <tr>
+                <th scope="col">Case</th>
+                <th scope="col">Location</th>
+                <th scope="col">Risk</th>
+                <th scope="col">Vulnerability</th>
+                <th scope="col">Urgency</th>
+                <th scope="col">Verification</th>
+                <th scope="col">Recommended Priority</th>
+                <th scope="col">Status</th>
+                <th scope="col">Days</th>
+                <th scope="col" class="text-end">Action</th>
+              </tr>
+            </thead>
+            <tbody id="caseTableBody">
+              <!-- Rendered by js/app.js from mock data -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="caseMobileList" class="mt-3"></div>
+
+      <!-- OFFICER OVERRIDE MODAL (P1.4) -->
+      <div class="modal fade" id="overrideModal" tabindex="-1" aria-labelledby="overrideModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content" style="border-radius:var(--lb-radius-lg); border:none;">
+            <div class="modal-header border-0">
+              <h2 class="modal-title h5" id="overrideModalLabel">Change priority</h2>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p class="small text-body-secondary" id="overrideCaseLabel"></p>
+              <label for="overridePriority" class="form-label small fw-semibold">New priority</label>
+              <select class="form-select mb-3" id="overridePriority">
+                <option>Urgent</option>
+                <option>High</option>
+                <option>Standard</option>
+              </select>
+              <label for="overrideReason" class="form-label small fw-semibold">Reason (required)</label>
+              <input type="text" class="form-control" id="overrideReason" placeholder="e.g. Applicant confirmed directly by phone">
+            </div>
+            <div class="modal-footer border-0">
+              <button type="button" class="btn btn-lb-outline" data-bs-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-lb-primary" id="overrideSaveBtn">Save &amp; log</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RISK FLAG DETAIL MODAL (P1.3) -->
+      <div class="modal fade" id="flagModal" tabindex="-1" aria-labelledby="flagModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content" style="border-radius:var(--lb-radius-lg); border:none;">
+            <div class="modal-header border-0">
+              <h2 class="modal-title h5" id="flagModalLabel">Why is this flagged?</h2>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="flagModalBody"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="lb-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <span class="lb-brand-mark mb-2 d-flex"><span class="lb-knot"><i class="bi bi-shield-check"></i></span>LegalBridge</span>
+        <p class="text-white-50 small mt-3">Bridging Citizens to Justice.</p>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Product</h6>
+        <ul class="list-unstyled d-flex flex-column gap-2 small">
+          <li><a href="index.html">About</a></li>
+          <li><a href="index.html#citizen-access">How It Works</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Trust</h6>
+        <ul class="list-unstyled d-flex flex-column gap-2 small">
+          <li><a href="case.html#protections">Privacy</a></li>
+          <li><a href="legal-basis.html">Legal Aid</a></li>
+          <li><a href="tel:16699">Contact (16699)</a></li>
+          <li><button type="button" class="btn btn-link p-0 text-white-50" style="text-decoration:none;" data-bs-toggle="offcanvas" data-bs-target="#a11yOffcanvas">Accessibility</button></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h6>Prototype scope</h6>
+        <p class="small text-white-50">Built for the Legal Tech Hackathon 2026 · Accelerating Digital Legal Aid Services in Bangladesh (ADLASB) · UNDP Bangladesh · Directorate of Bangladesh Legal Aid (DBLA). Prototype only — not a live government service.</p>
+      </div>
+    </div>
+    <p class="lb-disclaimer mb-0">LegalBridge is a prototype concept for a digital legal-aid service. AI-generated information is not a substitute for official legal advice or human legal judgment.</p>
+  </div>
+</footer>
+
+<div class="modal fade" id="emergencyModal" tabindex="-1" aria-labelledby="emergencyModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:var(--lb-radius-lg); border:none;">
+      <div class="modal-header border-0">
+        <h2 class="modal-title h5" id="emergencyModalLabel">Need immediate help?</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex flex-column gap-3">
+        <button class="lb-voice-btn" style="background:var(--lb-emerald-50); color:var(--lb-ink-900); border-color:var(--lb-line);" data-lb-emergency-action="call">
+          <i class="bi bi-telephone-fill" style="color:var(--lb-terracotta-700);"></i>
+          <span>Call Legal Aid Helpline<br><strong class="fs-5">16699</strong></span>
+        </button>
+        <button class="lb-voice-btn" style="background:var(--lb-emerald-50); color:var(--lb-ink-900); border-color:var(--lb-line);" data-lb-emergency-action="officer">
+          <i class="bi bi-person-badge" style="color:var(--lb-emerald-700);"></i>
+          <span>Speak to Human Officer</span>
+        </button>
+        <button class="lb-voice-btn" style="background:var(--lb-emerald-50); color:var(--lb-ink-900); border-color:var(--lb-line);" data-lb-emergency-action="guidance">
+          <i class="bi bi-shield-check" style="color:var(--lb-emerald-700);"></i>
+          <span>Safety Guidance</span>
+        </button>
+        <div class="row g-2 small text-body-secondary">
+          <div class="col-4"><a href="tel:109" class="btn btn-lb-outline w-100 btn-sm">109<br><span style="font-size:.72rem;">Women &amp; child abuse</span></a></div>
+          <div class="col-4"><a href="tel:999" class="btn btn-lb-outline w-100 btn-sm">999<br><span style="font-size:.72rem;">National emergency</span></a></div>
+          <div class="col-4"><span class="btn btn-lb-outline w-100 btn-sm disabled">OCC<br><span style="font-size:.72rem;">Nearest district hospital</span></span></div>
+        </div>
+        <div class="lb-alert-banner lb-alert-warn mb-0">
+          <i class="bi bi-info-circle-fill fs-5"></i>
+          <p class="mb-0 small">Prototype interaction — not a live helpline connection.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="offcanvas offcanvas-end lb-a11y-panel" tabindex="-1" id="a11yOffcanvas" aria-labelledby="a11yOffcanvasLabel">
+  <div class="offcanvas-header">
+    <h2 class="offcanvas-title h5" id="a11yOffcanvasLabel">Accessibility</h2>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="mb-4">
+      <label class="form-label fw-semibold small">Text size</label>
+      <div class="lb-fontsize-ctrl">
+        <button type="button" id="a11yFontDec" aria-label="Decrease text size">A-</button>
+        <span class="small text-body-secondary">Adjust</span>
+        <button type="button" id="a11yFontInc" aria-label="Increase text size">A+</button>
+      </div>
+    </div>
+    <div class="form-check form-switch mb-3">
+      <input class="form-check-input" type="checkbox" id="a11yContrast">
+      <label class="form-check-label" for="a11yContrast">High contrast</label>
+    </div>
+    <div class="form-check form-switch mb-3">
+      <input class="form-check-input" type="checkbox" id="a11yMotion">
+      <label class="form-check-label" for="a11yMotion">Reduced motion</label>
+    </div>
+    <hr class="lb-rule">
+    <p class="small text-body-secondary mb-0"><i class="bi bi-check-circle-fill text-success me-1"></i>The Bangla interface on the intake flow has been tested with TalkBack (Android).</p>
+  </div>
+</div>
+
+<button class="lb-emergency-fab" type="button" data-bs-toggle="modal" data-bs-target="#emergencyModal">
+  <i class="bi bi-telephone-fill"></i><span class="d-none d-sm-inline">Emergency Help</span>
+</button>
+
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

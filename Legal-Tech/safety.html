@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Safety &amp; Human Verification — LegalBridge</title>
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="vendor/bootstrap-icons/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a href="#main" class="lb-skip-link">Skip to main content</a>
+
+<header class="lb-header">
+  <nav class="navbar navbar-expand-lg h-100" aria-label="Primary">
+    <div class="container">
+      <a class="lb-brand" href="index.html">
+        <span class="lb-brand-mark"><span class="lb-knot"><i class="bi bi-shield-check"></i></span>LegalBridge</span>
+        <span class="lb-brand-tag">Bridging Citizens to Justice.</span>
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#lbNavCollapse" aria-controls="lbNavCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="bi bi-list fs-2"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="lbNavCollapse">
+        <ul class="navbar-nav lb-nav mx-lg-auto my-3 my-lg-0 gap-lg-1">
+          <li class="nav-item"><a class="nav-link" data-page="index.html" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#citizen-access">Citizen Access</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="intake.html" href="intake.html">AI Intake</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="safety.html" href="safety.html">Safety</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="dashboard.html" href="dashboard.html">DLAO Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="mediation.html" href="mediation.html">Mediation</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="case.html" href="case.html">Case Record</a></li>
+        </ul>
+        <div class="d-flex align-items-center gap-2 lb-header-actions flex-wrap">
+          <button class="lb-icon-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#a11yOffcanvas" aria-label="Open accessibility settings"><i class="bi bi-universal-access-circle"></i></button>
+          <button class="btn btn-lb-ghost" id="langToggle" type="button" aria-label="Switch language" lang="bn">বাংলা</button>
+          <button class="btn btn-lb-outline" type="button" data-bs-toggle="modal" data-bs-target="#emergencyModal"><i class="bi bi-telephone-fill me-1"></i>Emergency Help</button>
+          <a class="lb-icon-btn" href="case.html" aria-label="Profile"><i class="bi bi-person-circle"></i></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="lb-section-tight lb-bg-raised">
+    <div class="container">
+      <p class="lb-kicker mb-2">Step 3 of 5 · Safety screening</p>
+      <h1 class="h1">Safety &amp; Human Verification</h1>
+      <p class="lead lb-measure-wide">Communication safety is a case requirement — nothing proceeds until it's confirmed.</p>
+    </div>
+  </section>
+
+  <section class="lb-section pt-4">
+    <div class="container">
+      <div class="lb-legal-basis">
+        <i class="bi bi-bank2"></i>
+        <div><strong>Legal basis:</strong> Verification of third-party information and emergency-support decisions — Section 8 (Emergency Legal Support) of the Legal Aid Services Act, 2000.</div>
+      </div>
+      <div class="row g-4">
+        <div class="col-lg-7">
+          <div class="lb-alert-banner lb-alert-danger mb-4">
+            <i class="bi bi-shield-exclamation fs-3"></i>
+            <div>
+              <strong>Communication safety is a case requirement.</strong>
+              <p class="mb-0 small">This case cannot proceed to direct contact until safety and verification steps are completed by a human officer.</p>
+            </div>
+          </div>
+
+          <div class="lb-card p-4 mb-4">
+            <div class="d-flex align-items-center gap-3 mb-3">
+              <div class="lb-case-avatar">M</div>
+              <div>
+                <div class="fw-semibold fs-5" style="font-family:var(--font-display);">Moyuri</div>
+                <div class="text-body-secondary small">Case LB-2026-00124 · Kalai, Joypurhat</div>
+              </div>
+            </div>
+            <div class="lb-case-meta-row">
+              <span class="lb-case-meta-label">Information source</span>
+              <span class="lb-case-meta-value">Ripon — Third-party</span>
+            </div>
+            <div class="lb-case-meta-row">
+              <span class="lb-case-meta-label">Verification</span>
+              <span class="lb-status-badge lb-status-unverified"><i class="bi bi-hourglass-split"></i>Not yet verified</span>
+            </div>
+            <div class="lb-case-meta-row">
+              <span class="lb-case-meta-label">Safe contact window</span>
+              <span class="lb-case-meta-value">Friday • approximately 20 minutes</span>
+            </div>
+            <div class="lb-case-meta-row">
+              <span class="lb-case-meta-label">Contact risk</span>
+              <span class="lb-case-meta-value lb-pill lb-pill-risk-high">High</span>
+            </div>
+            <div class="lb-case-meta-row">
+              <span class="lb-case-meta-label">Applicant's phone</span>
+              <span class="lb-case-meta-value text-danger-emphasis"><i class="bi bi-phone-fill me-1"></i>Not safe for unscheduled contact</span>
+            </div>
+            <div class="lb-case-meta-row">
+              <span class="lb-case-meta-label">NID</span>
+              <span class="lb-case-meta-value">Not currently accessible</span>
+            </div>
+          </div>
+
+          <div class="d-flex flex-wrap gap-3">
+            <button class="btn btn-lb-primary btn-lg-touch" id="scheduleContactBtn"><i class="bi bi-calendar-check me-2"></i>Schedule Safe Human Contact</button>
+            <button class="btn btn-lb-outline btn-lg-touch" id="escalateOfficerBtn"><i class="bi bi-person-badge me-2"></i>Escalate to Officer</button>
+          </div>
+        </div>
+
+        <div class="col-lg-5">
+          <div class="lb-card p-4">
+            <h2 class="h5 mb-3">Verification checklist</h2>
+            <ul class="lb-checklist">
+              <li class="is-done"><span class="lb-check-icon"><i class="bi bi-check-lg"></i></span>Third-party information clearly identified</li>
+              <li class="is-done"><span class="lb-check-icon"><i class="bi bi-check-lg"></i></span>Safe communication window recorded</li>
+              <li class="is-done"><span class="lb-check-icon"><i class="bi bi-check-lg"></i></span>Unsafe handset communication blocked</li>
+              <li class="is-done"><span class="lb-check-icon"><i class="bi bi-check-lg"></i></span>Human officer review required</li>
+              <li class="is-open" id="checklistVerified"><span class="lb-check-icon"><i class="bi bi-dash"></i></span>Applicant safely verified</li>
+              <li class="is-open" id="checklistConsent"><span class="lb-check-icon"><i class="bi bi-dash"></i></span>Consent confirmed</li>
+            </ul>
+          </div>
+
+          <div class="lb-alert-banner lb-alert-info mt-4">
+            <i class="bi bi-info-circle-fill fs-5"></i>
+            <p class="mb-0 small">Ripon's information is shown as unverified throughout the system until a human officer completes safe verification with Moyuri directly.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="lb-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <span class="lb-brand-mark mb-2 d-flex"><span class="lb-knot"><i class="bi bi-shield-check"></i></span>LegalBridge</span>
+        <p class="text-white-50 small mt-3">Bridging Citizens to Justice.</p>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Product</h6>
+        <ul class="list-unstyled d-flex flex-column gap-2 small">
+          <li><a href="index.html">About</a></li>
+          <li><a href="index.html#citizen-access">How It Works</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Trust</h6>
+        <ul class="list-unstyled d-flex flex-column gap-2 small">
+          <li><a href="case.html#protections">Privacy</a></li>
+          <li><a href="legal-basis.html">Legal Aid</a></li>
+          <li><a href="tel:16699">Contact (16699)</a></li>
+          <li><button type="button" class="btn btn-link p-0 text-white-50" style="text-decoration:none;" data-bs-toggle="offcanvas" data-bs-target="#a11yOffcanvas">Accessibility</button></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h6>Prototype scope</h6>
+        <p class="small text-white-50">Built for the Legal Tech Hackathon 2026 · Accelerating Digital Legal Aid Services in Bangladesh (ADLASB) · UNDP Bangladesh · Directorate of Bangladesh Legal Aid (DBLA). Prototype only — not a live government service.</p>
+      </div>
+    </div>
+    <p class="lb-disclaimer mb-0">LegalBridge is a prototype concept for a digital legal-aid service. AI-generated information is not a substitute for official legal advice or human legal judgment.</p>
+  </div>
+</footer>
+
+<div class="modal fade" id="emergencyModal" tabindex="-1" aria-labelledby="emergencyModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:var(--lb-radius-lg); border:none;">
+      <div class="modal-header border-0">
+        <h2 class="modal-title h5" id="emergencyModalLabel">Need immediate help?</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex flex-column gap-3">
+        <button class="lb-voice-btn" style="background:var(--lb-emerald-50); color:var(--lb-ink-900); border-color:var(--lb-line);" data-lb-emergency-action="call">
+          <i class="bi bi-telephone-fill" style="color:var(--lb-terracotta-700);"></i>
+          <span>Call Legal Aid Helpline<br><strong class="fs-5">16699</strong></span>
+        </button>
+        <button class="lb-voice-btn" style="background:var(--lb-emerald-50); color:var(--lb-ink-900); border-color:var(--lb-line);" data-lb-emergency-action="officer">
+          <i class="bi bi-person-badge" style="color:var(--lb-emerald-700);"></i>
+          <span>Speak to Human Officer</span>
+        </button>
+        <button class="lb-voice-btn" style="background:var(--lb-emerald-50); color:var(--lb-ink-900); border-color:var(--lb-line);" data-lb-emergency-action="guidance">
+          <i class="bi bi-shield-check" style="color:var(--lb-emerald-700);"></i>
+          <span>Safety Guidance</span>
+        </button>
+        <div class="row g-2 small text-body-secondary">
+          <div class="col-4"><a href="tel:109" class="btn btn-lb-outline w-100 btn-sm">109<br><span style="font-size:.72rem;">Women &amp; child abuse</span></a></div>
+          <div class="col-4"><a href="tel:999" class="btn btn-lb-outline w-100 btn-sm">999<br><span style="font-size:.72rem;">National emergency</span></a></div>
+          <div class="col-4"><span class="btn btn-lb-outline w-100 btn-sm disabled">OCC<br><span style="font-size:.72rem;">Nearest district hospital</span></span></div>
+        </div>
+        <div class="lb-alert-banner lb-alert-warn mb-0">
+          <i class="bi bi-info-circle-fill fs-5"></i>
+          <p class="mb-0 small">Prototype interaction — not a live helpline connection.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="offcanvas offcanvas-end lb-a11y-panel" tabindex="-1" id="a11yOffcanvas" aria-labelledby="a11yOffcanvasLabel">
+  <div class="offcanvas-header">
+    <h2 class="offcanvas-title h5" id="a11yOffcanvasLabel">Accessibility</h2>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="mb-4">
+      <label class="form-label fw-semibold small">Text size</label>
+      <div class="lb-fontsize-ctrl">
+        <button type="button" id="a11yFontDec" aria-label="Decrease text size">A-</button>
+        <span class="small text-body-secondary">Adjust</span>
+        <button type="button" id="a11yFontInc" aria-label="Increase text size">A+</button>
+      </div>
+    </div>
+    <div class="form-check form-switch mb-3">
+      <input class="form-check-input" type="checkbox" id="a11yContrast">
+      <label class="form-check-label" for="a11yContrast">High contrast</label>
+    </div>
+    <div class="form-check form-switch mb-3">
+      <input class="form-check-input" type="checkbox" id="a11yMotion">
+      <label class="form-check-label" for="a11yMotion">Reduced motion</label>
+    </div>
+    <hr class="lb-rule">
+    <p class="small text-body-secondary mb-0"><i class="bi bi-check-circle-fill text-success me-1"></i>The Bangla interface on the intake flow has been tested with TalkBack (Android).</p>
+  </div>
+</div>
+
+<button class="lb-emergency-fab" type="button" data-bs-toggle="modal" data-bs-target="#emergencyModal">
+  <i class="bi bi-telephone-fill"></i><span class="d-none d-sm-inline">Emergency Help</span>
+</button>
+
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Mediation &amp; ODR — LegalBridge</title>
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="vendor/bootstrap-icons/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a href="#main" class="lb-skip-link">Skip to main content</a>
+
+<header class="lb-header">
+  <nav class="navbar navbar-expand-lg h-100" aria-label="Primary">
+    <div class="container">
+      <a class="lb-brand" href="index.html">
+        <span class="lb-brand-mark"><span class="lb-knot"><i class="bi bi-shield-check"></i></span>LegalBridge</span>
+        <span class="lb-brand-tag">Bridging Citizens to Justice.</span>
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#lbNavCollapse" aria-controls="lbNavCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="bi bi-list fs-2"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="lbNavCollapse">
+        <ul class="navbar-nav lb-nav mx-lg-auto my-3 my-lg-0 gap-lg-1">
+          <li class="nav-item"><a class="nav-link" data-page="index.html" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#citizen-access">Citizen Access</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="intake.html" href="intake.html">AI Intake</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="safety.html" href="safety.html">Safety</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="dashboard.html" href="dashboard.html">DLAO Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="mediation.html" href="mediation.html">Mediation</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="case.html" href="case.html">Case Record</a></li>
+        </ul>
+        <div class="d-flex align-items-center gap-2 lb-header-actions flex-wrap">
+          <button class="lb-icon-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#a11yOffcanvas" aria-label="Open accessibility settings"><i class="bi bi-universal-access-circle"></i></button>
+          <button class="btn btn-lb-ghost" id="langToggle" type="button" aria-label="Switch language" lang="bn">বাংলা</button>
+          <button class="btn btn-lb-outline" type="button" data-bs-toggle="modal" data-bs-target="#emergencyModal"><i class="bi bi-telephone-fill me-1"></i>Emergency Help</button>
+          <a class="lb-icon-btn" href="case.html" aria-label="Profile"><i class="bi bi-person-circle"></i></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="lb-section-tight lb-bg-raised">
+    <div class="container">
+      <p class="lb-kicker mb-2">Step 5 of 5 · Resolution</p>
+      <h1 class="h1">Digital Mediation &amp; ODR</h1>
+      <p class="lead lb-measure-wide">A structured path from intake to a certified, recorded agreement — with a human-controlled stop at every stage.</p>
+    </div>
+  </section>
+
+  <section class="lb-section pt-4">
+    <div class="container">
+
+      <div class="lb-legal-basis">
+        <i class="bi bi-bank2"></i>
+        <div><strong>Legal basis:</strong> Mandatory pre-litigation mediation — Section 21Kha. Provisions governing the mediation agreement — Section 21Ga, Legal Aid Services Act, 2000.</div>
+      </div>
+
+      <div class="lb-card p-4 p-lg-5 mb-5">
+        <h2 class="h5 mb-4">Mediation process</h2>
+        <div class="lb-stepper">
+          <div class="lb-stepper-item is-done"><div class="lb-stepper-dot"><i class="bi bi-check-lg"></i></div><span class="lb-step-label">Citizen Entry</span></div>
+          <div class="lb-stepper-item is-done"><div class="lb-stepper-dot"><i class="bi bi-check-lg"></i></div><span class="lb-step-label">Eligibility / Intake</span></div>
+          <div class="lb-stepper-item is-done"><div class="lb-stepper-dot"><i class="bi bi-check-lg"></i></div><span class="lb-step-label">Safety Screening</span></div>
+          <div class="lb-stepper-item is-current"><div class="lb-stepper-dot">4</div><span class="lb-step-label">Suitable for Mediation?</span></div>
+          <div class="lb-stepper-item"><div class="lb-stepper-dot">5</div><span class="lb-step-label">Mediator</span></div>
+          <div class="lb-stepper-item"><div class="lb-stepper-dot">6</div><span class="lb-step-label">Agreement</span></div>
+          <div class="lb-stepper-item"><div class="lb-stepper-dot">7</div><span class="lb-step-label">Certification</span></div>
+          <div class="lb-stepper-item"><div class="lb-stepper-dot">8</div><span class="lb-step-label">Secure Record</span></div>
+          <div class="lb-stepper-item"><div class="lb-stepper-dot">9</div><span class="lb-step-label">Follow-up</span></div>
+        </div>
+      </div>
+
+      <div class="lb-alert-banner lb-alert-info mb-4">
+        <i class="bi bi-info-circle-fill fs-4"></i>
+        <p class="mb-0 small">Every mediation-eligible matter is screened individually. These two cases show why the outcome differs — the system's judgment, not a script.</p>
+      </div>
+
+      <div class="lb-track-tabs" role="tablist" aria-label="Mediation eligibility examples">
+        <button class="lb-track-tab is-active" type="button" data-track-tab="moyuri" role="tab" aria-selected="true">Track A — Moyuri's case (stops)</button>
+        <button class="lb-track-tab" type="button" data-track-tab="karim" role="tab" aria-selected="false">Track B — Abdul Karim's case (proceeds)</button>
+      </div>
+
+      <!-- TRACK A — STOPS -->
+      <div class="lb-track-panel is-active" id="track-moyuri">
+        <div class="lb-card p-4 mb-4" style="border-color:#ecc9bc;">
+          <h2 class="h5 mb-3">Case LB-2026-00124 · Moyuri</h2>
+          <div class="lb-case-meta-row"><span class="lb-case-meta-label">Legal position</span><span class="lb-case-meta-value lb-pill lb-pill-risk-low">Pre-litigation mediation mandatory (Schedule items 1 &amp; 8, Section 21Kha)</span></div>
+          <div class="lb-case-meta-row"><span class="lb-case-meta-label">Safety screening</span><span class="lb-case-meta-value lb-pill lb-pill-risk-high">Independent, confidential participation could not be confirmed</span></div>
+          <div class="lb-decision-banner lb-decision-stop">
+            <i class="bi bi-octagon-fill"></i>
+            <div>
+              <p class="fw-semibold mb-1">System decision: joint online mediation is blocked.</p>
+              <p class="small mb-0">Referred to the DLAO as emergency legal support under Section 8. The next decision belongs to the Legal Aid Officer — not the system. Alternatives: separate / shuttle mediation, or a non-settlement certificate.</p>
+            </div>
+          </div>
+          <div class="d-flex flex-wrap gap-2 mt-2">
+            <button class="btn btn-lb-outline" id="mediationEscalateBtn" type="button"><i class="bi bi-arrow-up-right-circle me-2"></i>Escalate to Human Legal Assistance</button>
+            <button class="btn btn-lb-outline" id="certOpenBtn" type="button"><i class="bi bi-file-earmark-text me-2"></i>Generate Non-Settlement Certificate</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TRACK B — PROCEEDS -->
+      <div class="lb-track-panel" id="track-karim">
+        <div class="lb-card p-4 mb-4">
+          <h2 class="h5 mb-3">Case LB-2026-00131 · Abdul Karim</h2>
+          <p class="small text-body-secondary mb-3">House-rent dispute (Schedule item 2, House Rent Control Act, 1991).</p>
+          <div class="lb-case-meta-row"><span class="lb-case-meta-label">Safety screening</span><span class="lb-case-meta-value lb-pill lb-pill-risk-low">Passed</span></div>
+          <div class="lb-case-meta-row"><span class="lb-case-meta-label">Free participation</span><span class="lb-case-meta-value">Required</span></div>
+          <div class="lb-case-meta-row"><span class="lb-case-meta-label">Coercion detected</span><span class="lb-case-meta-value lb-pill lb-pill-risk-low">No</span></div>
+          <div class="lb-case-meta-row"><span class="lb-case-meta-label">Suitable for mediation</span><span class="lb-case-meta-value lb-pill lb-pill-risk-low">Yes</span></div>
+          <div class="lb-decision-banner lb-decision-go">
+            <i class="bi bi-check-circle-fill"></i>
+            <p class="mb-0 small">Safety and voluntariness confirmed. Mediation proceeds.</p>
+          </div>
+          <div class="mt-3">
+            <button class="btn btn-lb-primary btn-lg-touch" id="startMediationBtn" type="button"><i class="bi bi-play-fill me-2"></i>Start Mediation</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="lb-card p-4 mt-4" style="border-color:#ecc9bc;">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <i class="bi bi-exclamation-triangle-fill fs-4" style="color:var(--lb-terracotta-700);"></i>
+          <h2 class="h5 mb-0">Stop condition</h2>
+        </div>
+        <div class="lb-alert-banner lb-alert-danger mb-3">
+          <p class="mb-0 small fw-semibold">Online mediation must stop when safe and voluntary participation cannot be ensured.</p>
+        </div>
+        <p class="small text-body-secondary mb-2">This applies when there is:</p>
+        <ul class="small text-body-secondary mb-0">
+          <li>An immediate safety threat</li>
+          <li>Intimidation or coercion</li>
+          <li>A participant who cannot participate freely</li>
+          <li>A matter unsuitable for online mediation</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<!-- NON-SETTLEMENT CERTIFICATE (P1.7) -->
+<div class="modal fade" id="certModal" tabindex="-1" aria-labelledby="certModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content" style="border-radius:var(--lb-radius-lg); border:none;">
+      <div class="modal-header border-0">
+        <h2 class="modal-title h5" id="certModalLabel">Non-Settlement Certificate</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="certPrintArea" class="p-4" style="border:1px solid var(--lb-line); border-radius:var(--lb-radius-md); font-family:var(--font-display, serif);">
+          <h3 class="h5 text-center mb-1">Certificate of Non-Settlement</h3>
+          <p class="text-center text-body-secondary small mb-4">Issued under the Legal Aid Services Act, 2000</p>
+          <p><strong>Case No.:</strong> LB-2026-00124 &nbsp;&nbsp; <strong>Date:</strong> <span id="certDate"></span></p>
+          <p><strong>Parties:</strong> Moyuri (Applicant) and respondent named in case file</p>
+          <p><strong>Subject of dispute / Schedule item:</strong> Maintenance and dowry-related claim — Schedule items 1 &amp; 8</p>
+          <p><strong>Outcome:</strong> Not resolved through mediation — joint online mediation halted on safety grounds under Section 8.</p>
+          <p class="mt-4 mb-1"><strong>Legal Aid Officer signature &amp; seal:</strong> _________________________</p>
+          <p class="small text-body-secondary">Verification code: LB-NSC-00124-2026 &nbsp;·&nbsp; QR verification available at the court filing counter</p>
+        </div>
+        <p class="small text-body-secondary mt-3 mb-0"><i class="bi bi-info-circle me-1"></i>This lets the applicant proceed to court without being sent back and forth between office and courthouse.</p>
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-lb-outline" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-lb-primary" id="certDownloadBtn"><i class="bi bi-download me-2"></i>Download</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="lb-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <span class="lb-brand-mark mb-2 d-flex"><span class="lb-knot"><i class="bi bi-shield-check"></i></span>LegalBridge</span>
+        <p class="text-white-50 small mt-3">Bridging Citizens to Justice.</p>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Product</h6>
+        <ul class="list-unstyled d-flex flex-column gap-2 small">
+          <li><a href="index.html">About</a></li>
+          <li><a href="index.html#citizen-access">How It Works</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6>Trust</h6>
+        <ul class="list-unstyled d-flex flex-column gap-2 small">
+          <li><a href="case.html#protections">Privacy</a></li>
+          <li><a href="legal-basis.html">Legal Aid</a></li>
+          <li><a href="tel:16699">Contact (16699)</a></li>
+          <li><button type="button" class="btn btn-link p-0 text-white-50" style="text-decoration:none;" data-bs-toggle="offcanvas" data-bs-target="#a11yOffcanvas">Accessibility</button></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h6>Prototype scope</h6>
+        <p class="small text-white-50">Built for the Legal Tech Hackathon 2026 · Accelerating Digital Legal Aid Services in Bangladesh (ADLASB) · UNDP Bangladesh · Directorate of Bangladesh Legal Aid (DBLA). Prototype only — not a live government service.</p>
+      </div>
+    </div>
+    <p class="lb-disclaimer mb-0">LegalBridge is a prototype concept for a digital legal-aid service. AI-generated information is not a substitute for official legal advice or human legal judgment.</p>
+  </div>
+</footer>
+
+<div class="modal fade" id="emergencyModal" tabindex="-1" aria-labelledby="emergencyModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:var(--lb-radius-lg); border:none;">
+      <div class="modal-header border-0">
+        <h2 class="modal-title h5" id="emergencyModalLabel">Need immediate help?</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex flex-column gap-3">
+        <button class="lb-voice-btn" style="background:var(--lb-emerald-50); color:var(--lb-ink-900); border-color:var(--lb-line);" data-lb-emergency-action="call">
+          <i class="bi bi-telephone-fill" style="color:var(--lb-terracotta-700);"></i>
+          <span>Call Legal Aid Helpline<br><strong class="fs-5">16699</strong></span>
+        </button>
+        <button class="lb-voice-btn" style="background:var(--lb-emerald-50); color:var(--lb-ink-900); border-color:var(--lb-line);" data-lb-emergency-action="officer">
+          <i class="bi bi-person-badge" style="color:var(--lb-emerald-700);"></i>
+          <span>Speak to Human Officer</span>
+        </button>
+        <button class="lb-voice-btn" style="background:var(--lb-emerald-50); color:var(--lb-ink-900); border-color:var(--lb-line);" data-lb-emergency-action="guidance">
+          <i class="bi bi-shield-check" style="color:var(--lb-emerald-700);"></i>
+          <span>Safety Guidance</span>
+        </button>
+        <div class="row g-2 small text-body-secondary">
+          <div class="col-4"><a href="tel:109" class="btn btn-lb-outline w-100 btn-sm">109<br><span style="font-size:.72rem;">Women &amp; child abuse</span></a></div>
+          <div class="col-4"><a href="tel:999" class="btn btn-lb-outline w-100 btn-sm">999<br><span style="font-size:.72rem;">National emergency</span></a></div>
+          <div class="col-4"><span class="btn btn-lb-outline w-100 btn-sm disabled">OCC<br><span style="font-size:.72rem;">Nearest district hospital</span></span></div>
+        </div>
+        <div class="lb-alert-banner lb-alert-warn mb-0">
+          <i class="bi bi-info-circle-fill fs-5"></i>
+          <p class="mb-0 small">Prototype interaction — not a live helpline connection.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="offcanvas offcanvas-end lb-a11y-panel" tabindex="-1" id="a11yOffcanvas" aria-labelledby="a11yOffcanvasLabel">
+  <div class="offcanvas-header">
+    <h2 class="offcanvas-title h5" id="a11yOffcanvasLabel">Accessibility</h2>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="mb-4">
+      <label class="form-label fw-semibold small">Text size</label>
+      <div class="lb-fontsize-ctrl">
+        <button type="button" id="a11yFontDec" aria-label="Decrease text size">A-</button>
+        <span class="small text-body-secondary">Adjust</span>
+        <button type="button" id="a11yFontInc" aria-label="Increase text size">A+</button>
+      </div>
+    </div>
+    <div class="form-check form-switch mb-3">
+      <input class="form-check-input" type="checkbox" id="a11yContrast">
+      <label class="form-check-label" for="a11yContrast">High contrast</label>
+    </div>
+    <div class="form-check form-switch mb-3">
+      <input class="form-check-input" type="checkbox" id="a11yMotion">
+      <label class="form-check-label" for="a11yMotion">Reduced motion</label>
+    </div>
+    <hr class="lb-rule">
+    <p class="small text-body-secondary mb-0"><i class="bi bi-check-circle-fill text-success me-1"></i>The Bangla interface on the intake flow has been tested with TalkBack (Android).</p>
+  </div>
+</div>
+
+<button class="lb-emergency-fab" type="button" data-bs-toggle="modal" data-bs-target="#emergencyModal">
+  <i class="bi bi-telephone-fill"></i><span class="d-none d-sm-inline">Emergency Help</span>
+</button>
+
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

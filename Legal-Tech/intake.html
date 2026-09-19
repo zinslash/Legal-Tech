@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Voice Intake — LegalBridge</title>
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="vendor/bootstrap-icons/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<a href="#main" class="lb-skip-link" data-i18n="skip_link">Skip to main content</a>
+
+<header class="lb-header">
+  <nav class="navbar navbar-expand-lg h-100" aria-label="Primary">
+    <div class="container">
+      <a class="lb-brand" href="index.html">
+        <span class="lb-brand-mark"><span class="lb-knot"><i class="bi bi-shield-check"></i></span>LegalBridge</span>
+        <span class="lb-brand-tag" data-i18n="brand_tag">Bridging Citizens to Justice.</span>
+      </a>
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#lbNavCollapse" aria-controls="lbNavCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="bi bi-list fs-2"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="lbNavCollapse">
+        <ul class="navbar-nav lb-nav mx-lg-auto my-3 my-lg-0 gap-lg-1">
+          <li class="nav-item"><a class="nav-link" data-page="index.html" href="index.html" data-i18n="nav_home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#citizen-access" data-i18n="nav_citizen_access">Citizen Access</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="intake.html" href="intake.html" data-i18n="nav_ai_intake">AI Intake</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="safety.html" href="safety.html" data-i18n="nav_safety">Safety</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="dashboard.html" href="dashboard.html" data-i18n="nav_dashboard">DLAO Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="mediation.html" href="mediation.html" data-i18n="nav_mediation">Mediation</a></li>
+          <li class="nav-item"><a class="nav-link" data-page="case.html" href="case.html" data-i18n="nav_case">Case Record</a></li>
+        </ul>
+        <div class="d-flex align-items-center gap-2 lb-header-actions flex-wrap">
+          <button class="lb-icon-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#a11yOffcanvas" aria-label="Open accessibility settings"><i class="bi bi-universal-access-circle"></i></button>
+          <button class="btn btn-lb-ghost" id="langToggle" type="button" aria-label="Switch language" lang="bn">বাংলা</button>
+          <button class="btn btn-lb-outline" type="button" data-bs-toggle="modal" data-bs-target="#emergencyModal"><i class="bi bi-telephone-fill me-1"></i><span data-i18n="emergency_help">Emergency Help</span></button>
+          <a class="lb-icon-btn" href="case.html" aria-label="Profile"><i class="bi bi-person-circle"></i></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="lb-section-tight lb-bg-raised">
+    <div class="container">
+      <p class="lb-kicker mb-2" data-i18n="intake_step">Step 2 of 5 · Voice intake</p>
+      <h1 class="h1" data-i18n="intake_h1">AI-Assisted Voice Intake</h1>
+      <p class="lead lb-measure-wide" data-i18n="intake_lead">Tell us what happened. LegalBridge will organize the information for a human officer.</p>
+    </div>
+  </section>
+
+  <section class="lb-section pt-4">
+    <div class="container">
+      <div class="lb-legal-basis">
+        <i class="bi bi-bank2"></i>
+        <div><strong data-i18n="intake_legal_basis_label">Legal basis:</strong> <span data-i18n="intake_legal_basis_text">Maintenance and dowry-related claims fall under Schedule items 1 &amp; 8 of the Legal Aid Services Act, 2000, to be read with Section 21Kha.</span></div>
+      </div>
+
+      <!-- DISTRICT ROLLOUT STATUS (P1.2) -->
+      <div class="lb-card p-3 mb-4">
+        <label for="districtSelect" class="form-label fw-semibold small mb-1" data-i18n="intake_district_label">Applicant's district</label>
+        <select class="form-select" id="districtSelect" style="max-width:320px;" aria-describedby="districtStatusBadge"></select>
+        <div class="lb-district-badge" id="districtStatusBadge" role="status" aria-live="polite"></div>
+      </div>
+
+      <!-- OFFLINE / UDC MODE (P1.8) -->
+      <div class="lb-card p-3 mb-5">
+        <div class="form-check form-switch m-0">
+          <input class="form-check-input" type="checkbox" id="offlineModeToggle" role="switch">
+          <label class="form-check-label fw-semibold small" for="offlineModeToggle" data-i18n="intake_offline_label">Offline / UDC mode</label>
+        </div>
+        <div class="lb-offline-banner" id="offlineModeBanner" hidden aria-live="polite">
+          <p class="mb-1"><i class="bi bi-cloud-slash-fill me-2"></i><strong data-i18n="intake_offline_active">Offline mode active.</strong> <span data-i18n="intake_offline_desc">The application is being taken without an internet connection and stored on this device.</span></p>
+          <p class="mb-1 small text-body-secondary"><i class="bi bi-hourglass-split me-2"></i><span data-i18n="intake_offline_pending">3 applications pending — will sync automatically once a network is available.</span></p>
+          <p class="mb-0 small text-body-secondary"><span data-i18n="intake_offline_sync">Last sync: yesterday, 18:42</span></p>
+        </div>
+      </div>
+
+      <div class="row g-5">
+        <!-- Microphone + conversation -->
+        <div class="col-lg-6">
+          <div class="lb-card p-4 p-lg-5 h-100">
+            <div class="lb-mic-wrap mb-4">
+              <button class="lb-mic-btn" id="micBtn" type="button" aria-label="Start voice intake">
+                <i class="bi bi-mic-fill"></i>
+              </button>
+              <div class="lb-wave" id="micWave" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span>
+              </div>
+              <div class="text-center">
+                <div class="lb-mic-state" id="micStateLabel" role="status" aria-live="polite" data-i18n="intake_mic_ready">Ready</div>
+                <div class="lb-mic-hint" id="micHint" aria-live="polite" data-i18n="intake_mic_hint">Tap the microphone to begin, or use the fallback text option below.</div>
+              </div>
+            </div>
+
+            <div class="lb-chat mb-3" id="intakeChat" role="log" aria-live="polite" aria-label="Intake conversation"></div>
+
+            <details class="mt-3">
+              <summary class="small fw-semibold" style="cursor:pointer;" data-i18n="intake_fallback_summary">Prefer to type instead? Use the text fallback</summary>
+              <div class="mt-3">
+                <label for="fallbackText" class="form-label small" data-i18n="intake_fallback_label">Describe what happened</label>
+                <textarea class="form-control" id="fallbackText" rows="3" placeholder="Type here if voice input isn't available to you right now."></textarea>
+                <p class="small text-body-secondary mt-2 mb-0" data-i18n="intake_fallback_note">Speech recognition in this prototype is simulated. In a live product, an on-device or server option would be offered with this text fallback always available.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <!-- Extracted information -->
+        <div class="col-lg-6">
+          <div class="lb-alert-banner lb-alert-info mb-4">
+            <i class="bi bi-shield-check fs-4"></i>
+            <div>
+              <strong data-i18n="intake_safety_notice_title">AI safety notice</strong>
+              <p class="mb-0 small" data-i18n="intake_safety_notice_text">AI does not determine eligibility, verify allegations, provide final legal advice, or decide case priority.</p>
+            </div>
+          </div>
+
+          <div id="extractionResults" hidden>
+            <h2 class="h5 mb-3" data-i18n="intake_extract_heading">Information organized so far</h2>
+            <div class="row g-3">
+              <div class="col-6">
+                <div class="lb-card-flat lb-extract-card">
+                  <div class="lb-extract-label" data-i18n="intake_extract_applicant">Applicant</div>
+                  <div class="lb-extract-value">Moyuri</div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="lb-card-flat lb-extract-card">
+                  <div class="lb-extract-label" data-i18n="intake_extract_source">Information source</div>
+                  <div class="lb-extract-value" data-i18n="intake_extract_source_value">Ripon — Brother</div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="lb-card-flat lb-extract-card">
+                  <div class="lb-extract-label" data-i18n="intake_extract_verification">Verification</div>
+                  <span class="lb-status-badge lb-status-unverified"><i class="bi bi-hourglass-split"></i><span data-i18n="intake_extract_pending">Pending</span></span>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="lb-card-flat lb-extract-card">
+                  <div class="lb-extract-label" data-i18n="intake_extract_location">Location</div>
+                  <div class="lb-extract-value" data-i18n="case_location">Kalai, Joypurhat</div>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="lb-card-flat lb-extract-card">
+                  <div class="lb-extract-label" data-i18n="intake_extract_indicators">Issue indicators</div>
+                  <div class="d-flex flex-wrap gap-2 mt-1">
+                    <span class="lb-pill lb-pill-risk-high" data-i18n="intake_indicator_dv">Domestic violence</span>
+                    <span class="lb-pill lb-pill-risk-med" data-i18n="intake_indicator_financial">Financial support</span>
+                    <span class="lb-pill lb-pill-risk-med" data-i18n="intake_indicator_threat">Threat / coercion</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="lb-card-flat lb-extract-card">
+                  <div class="lb-extract-label">NID</div>
+                  <div class="lb-extract-value" data-i18n="intake_extract_na">Not available</div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="lb-card-flat lb-extract-card">
+                  <div class="lb-extract-label" data-i18n="intake_extract_safe_comm">Safe communication</div>
+                  <div class="lb-extract-value" data-i18n="intake_extract_safe_comm_value">Friday — ~20 minutes</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- READ MY APPLICATION BACK (P1.11) -->
+            <div class="lb-readaloud-box" role="region" aria-labelledby="readaloudTitle">
+              <p id="readaloudTitle" class="fw-semibold mb-2"><i class="bi bi-volume-up-fill me-2" style="color:var(--lb-gold-600);"></i><span data-i18n="intake_readaloud_title">Hear it back before you submit</span></p>
+              <p class="small text-body-secondary mb-3" data-i18n="intake_readaloud_desc">This reads the whole application aloud — useful for anyone who can't read the screen, like Ripon.</p>
+              <div class="d-flex flex-wrap gap-2">
+                <button class="lb-voice-btn" style="background:var(--lb-emerald-50); color:var(--lb-ink-900); border-color:var(--lb-line); width:auto; flex:1 1 220px;" id="readAloudBtn" type="button">
+                  <i class="bi bi-play-fill"></i><span data-i18n="intake_readaloud_btn">Read my full application aloud</span>
+                </button>
+                <button class="lb-voice-btn" style="background:var(--lb-emerald-50); color:var(--lb-ink-900); border-color:var(--lb-line); width:auto; flex:1 1 140px;" id="readAloudStopBtn" type="button" hidden>
+                  <i class="bi bi-stop-fill"></i><span data-i18n="intake_readaloud_stop">Stop</span>
+                </button>
+              </div>
+              <div id="readAloudLog" class="small mt-3" role="log" aria-live="polite"></div>
+              <div id="readAloudConfirm" class="d-flex gap-2 mt-3" hidden>
+                <button class="btn btn-lb-primary btn-sm" id="readAloudYes" type="button" data-i18n="intake_readaloud_yes">✅ Yes, that's correct</button>
+                <button class="btn btn-lb-outline btn-sm" id="readAloudNo" type="button" data-i18n="intake_readaloud_no">✏️ No, I need to fix something</button>
+              </div>
+            </div>
+
+            <!-- VOICE CALLBACK VERIFICATION (P1.12) -->
+            <section class="lb-readaloud-box mt-3" aria-labelledby="vcTitle">
+              <h2 id="vcTitle" class="h6 mb-2"><i class="bi bi-telephone-inbound-fill me-2" style="color:var(--lb-emerald-700);"></i><span data-i18n="intake_vc_title">Phone-call verification</span></h2>
+              <p class="small text-body-secondary mb-3" data-i18n="intake_vc_desc">No CAPTCHA, no SMS code to read — the code is spoken to you over a phone call to your registered safe number, and you confirm it on the keypad.</p>
+
+              <div id="vcLiveRegion" aria-live="assertive" class="visually-hidden"></div>
+
+              <div id="vcIdle">
+                <p class="small mb-1"><strong data-i18n="intake_vc_number_label">Number:</strong> <span data-i18n="intake_vc_number_value">017XX-XXXXXX (registered safe number)</span></p>
+                <button class="btn btn-lb-primary" id="vcCallBtn" type="button"><i class="bi bi-telephone-fill me-2"></i><span data-i18n="intake_vc_callme">Call me</span></button>
+              </div>
+
+              <div id="vcRinging" role="status" class="small mt-2" hidden><i class="bi bi-telephone-outbound me-2"></i><span data-i18n="intake_vc_ringing">Calling…</span></div>
+              <div id="vcSpeaking" role="status" class="small mt-2" hidden><i class="bi bi-soundwave me-2"></i><span data-i18n="intake_vc_speaking">Speaking the code…</span></div>
+
+              <div id="vcAwaiting" hidden>
+                <p class="small mt-2 mb-1"><span data-i18n="intake_vc_enter_code">Enter the 4-digit code you heard. Time remaining:</span> <span id="vcTimer">5:00</span></p>
+                <div class="lb-code-dots" id="vcDots"><span></span><span></span><span></span><span></span></div>
+                <div class="lb-keypad" role="group" aria-label="Number keypad">
+                  <button type="button" data-digit="2">2</button><button type="button" data-digit="3">3</button>
+                  <button type="button" data-digit="4">4</button><button type="button" data-digit="5">5</button>
+                  <button type="button" data-digit="6">6</button><button type="button" data-digit="7">7</button>
+                  <button type="button" data-digit="8">8</button><button type="button" data-digit="9">9</button>
+                </div>
+                <div class="d-flex flex-wrap gap-2 mt-2">
+                  <button class="btn btn-lb-outline btn-sm" id="vcRepeatBtn" type="button"><i class="bi bi-arrow-repeat me-1"></i><span data-i18n="intake_vc_repeat">Hear the code again</span></button>
+                  <button class="btn btn-lb-outline btn-sm" id="vcMoreTimeBtn" type="button"><i class="bi bi-clock-history me-1"></i><span data-i18n="intake_vc_moretime">Give me more time</span></button>
+                  <button class="btn btn-lb-outline btn-sm" id="vcRecallBtn" type="button"><i class="bi bi-telephone-fill me-1"></i><span data-i18n="intake_vc_callagain">Call again</span></button>
+                </div>
+              </div>
+
+              <p id="vcVerified" class="small mt-2 text-success fw-semibold" role="status" hidden><i class="bi bi-check-circle-fill me-1"></i><span data-i18n="intake_vc_verified">Verified. Thank you.</span></p>
+              <div id="vcFailed" hidden>
+                <p class="small mt-2 text-danger-emphasis" role="alert" data-i18n="intake_vc_failed">We couldn't verify this automatically.</p>
+                <button class="btn btn-lb-outline btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#emergencyModal" data-i18n="intake_vc_speak_officer">👤 Speak to an officer instead</button>
+              </div>
+
+              <hr class="my-3">
+              <p class="small fw-semibold mb-1" data-i18n="intake_vc_channel_demo">Channel-lock demo</p>
+              <p class="small text-body-secondary mb-2" data-i18n="intake_vc_channel_desc">Verification calls only ever go to the registered safe number — never a number typed in on the spot. Try it with a blocked number:</p>
+              <button class="btn btn-lb-outline btn-sm" id="vcBlockedDemoBtn" type="button" data-i18n="intake_vc_blocked_btn">Try calling the flagged handset instead</button>
+              <div id="vcBlockedResult" class="small mt-2" hidden></div>
+
+              <p class="small text-body-secondary mt-3 mb-0"><em data-i18n="intake_vc_note">Prototype note: the call is simulated in this browser demo. In production this is placed through the 16699 call-centre telephony (IVR/DTMF), so it works over any phone line — no internet or screen required.</em></p>
+            </section>
+
+            <div class="d-grid mt-4">
+              <button class="btn btn-lb-primary btn-lg-touch" id="continueToSafety" onclick="window.location.href='safety.html'">
+                <span data-i18n="intake_continue_btn">Continue to Safety Screening</span> <i class="bi bi-arrow-right ms-1"></i>
+              </button>
+            </div>
+          </div>
+
+          <div id="extractionEmpty" class="text-center py-5 text-body-secondary" style="border:1px dashed var(--lb-line); border-radius:var(--lb-radius-md);">
+            <i class="bi bi-soundwave fs-1 d-block mb-2"></i>
+            <p class="mb-0 small" data-i18n="intake_extract_empty">Extracted information will appear here once intake begins.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="lb-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <span class="lb-brand-mark mb-2 d-flex"><span class="lb-knot"><i class="bi bi-shield-check"></i></span>LegalBridge</span>
+        <p class="text-white-50 small mt-3" data-i18n="brand_tag">Bridging Citizens to Justice.</p>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6 data-i18n="footer_product">Product</h6>
+        <ul class="list-unstyled d-flex flex-column gap-2 small">
+          <li><a href="index.html" data-i18n="footer_about">About</a></li>
+          <li><a href="index.html#citizen-access" data-i18n="footer_how">How It Works</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6 data-i18n="footer_trust">Trust</h6>
+        <ul class="list-unstyled d-flex flex-column gap-2 small">
+          <li><a href="case.html#protections" data-i18n="footer_privacy">Privacy</a></li>
+          <li><a href="legal-basis.html" data-i18n="footer_legal_aid">Legal Aid</a></li>
+          <li><a href="tel:16699" data-i18n="footer_contact">Contact (16699)</a></li>
+          <li><button type="button" class="btn btn-link p-0 text-white-50" style="text-decoration:none;" data-bs-toggle="offcanvas" data-bs-target="#a11yOffcanvas" data-i18n="a11y_kicker">Accessibility</button></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h6 data-i18n="footer_scope_title">Prototype scope</h6>
+        <p class="small text-white-50" data-i18n="footer_scope_p">Built for the Legal Tech Hackathon 2026 · Accelerating Digital Legal Aid Services in Bangladesh (ADLASB) · UNDP Bangladesh · Directorate of Bangladesh Legal Aid (DBLA). Prototype only — not a live government service.</p>
+      </div>
+    </div>
+    <p class="lb-disclaimer mb-0" data-i18n="footer_disclaimer">LegalBridge is a prototype concept for a digital legal-aid service. AI-generated information is not a substitute for official legal advice or human legal judgment.</p>
+  </div>
+</footer>
+
+<div class="modal fade" id="emergencyModal" tabindex="-1" aria-labelledby="emergencyModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:var(--lb-radius-lg); border:none;">
+      <div class="modal-header border-0">
+        <h2 class="modal-title h5" id="emergencyModalLabel" data-i18n="modal_title">Need immediate help?</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body d-flex flex-column gap-3">
+        <button class="lb-voice-btn" style="background:var(--lb-emerald-50); color:var(--lb-ink-900); border-color:var(--lb-line);" data-lb-emergency-action="call">
+          <i class="bi bi-telephone-fill" style="color:var(--lb-terracotta-700);"></i>
+          <span><span data-i18n="modal_call">Call Legal Aid Helpline</span><br><strong class="fs-5">16699</strong></span>
+        </button>
+        <button class="lb-voice-btn" style="background:var(--lb-emerald-50); color:var(--lb-ink-900); border-color:var(--lb-line);" data-lb-emergency-action="officer">
+          <i class="bi bi-person-badge" style="color:var(--lb-emerald-700);"></i>
+          <span data-i18n="modal_officer">Speak to Human Officer</span>
+        </button>
+        <button class="lb-voice-btn" style="background:var(--lb-emerald-50); color:var(--lb-ink-900); border-color:var(--lb-line);" data-lb-emergency-action="guidance">
+          <i class="bi bi-shield-check" style="color:var(--lb-emerald-700);"></i>
+          <span data-i18n="modal_guidance">Safety Guidance</span>
+        </button>
+        <div class="row g-2 small text-body-secondary">
+          <div class="col-4"><a href="tel:109" class="btn btn-lb-outline w-100 btn-sm">109<br><span style="font-size:.72rem;" data-i18n="modal_109">Women &amp; child abuse</span></a></div>
+          <div class="col-4"><a href="tel:999" class="btn btn-lb-outline w-100 btn-sm">999<br><span style="font-size:.72rem;" data-i18n="modal_999">National emergency</span></a></div>
+          <div class="col-4"><span class="btn btn-lb-outline w-100 btn-sm disabled">OCC<br><span style="font-size:.72rem;" data-i18n="modal_occ">Nearest district hospital</span></span></div>
+        </div>
+        <div class="lb-alert-banner lb-alert-warn mb-0">
+          <i class="bi bi-info-circle-fill fs-5"></i>
+          <p class="mb-0 small" data-i18n="modal_disclaimer">Prototype interaction — not a live helpline connection.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="offcanvas offcanvas-end lb-a11y-panel" tabindex="-1" id="a11yOffcanvas" aria-labelledby="a11yOffcanvasLabel">
+  <div class="offcanvas-header">
+    <h2 class="offcanvas-title h5" id="a11yOffcanvasLabel" data-i18n="a11y_kicker">Accessibility</h2>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+    <div class="mb-4">
+      <label class="form-label fw-semibold small" data-i18n="oc_text_size">Text size</label>
+      <div class="lb-fontsize-ctrl">
+        <button type="button" id="a11yFontDec" aria-label="Decrease text size">A-</button>
+        <span class="small text-body-secondary" data-i18n="oc_adjust">Adjust</span>
+        <button type="button" id="a11yFontInc" aria-label="Increase text size">A+</button>
+      </div>
+    </div>
+    <div class="form-check form-switch mb-3">
+      <input class="form-check-input" type="checkbox" id="a11yContrast">
+      <label class="form-check-label" for="a11yContrast" data-i18n="oc_contrast">High contrast</label>
+    </div>
+    <div class="form-check form-switch mb-3">
+      <input class="form-check-input" type="checkbox" id="a11yMotion">
+      <label class="form-check-label" for="a11yMotion" data-i18n="oc_motion">Reduced motion</label>
+    </div>
+    <hr class="lb-rule">
+    <p class="small text-body-secondary mb-0"><i class="bi bi-check-circle-fill text-success me-1"></i><span data-i18n="oc_talkback">The Bangla interface on the intake flow has been tested with TalkBack (Android).</span></p>
+    <hr class="lb-rule">
+    <div class="mb-3">
+      <label class="form-label fw-semibold small" data-i18n="oc_voice_mode">Voice mode</label>
+      <p class="small text-body-secondary" data-i18n="oc_voice_mode_desc_intake">This intake page is voice-first: use the microphone, the "read my application back" button, and phone-call verification below without needing to read the screen.</p>
+    </div>
+  </div>
+</div>
+
+<button class="lb-emergency-fab" type="button" data-bs-toggle="modal" data-bs-target="#emergencyModal">
+  <i class="bi bi-telephone-fill"></i><span class="d-none d-sm-inline" data-i18n="emergency_help">Emergency Help</span>
+</button>
+
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+<script>
+  document.getElementById('micBtn').addEventListener('click', function () {
+    document.getElementById('extractionEmpty').hidden = true;
+  });
+</script>
+</body>
+</html>
