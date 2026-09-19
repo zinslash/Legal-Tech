@@ -425,50 +425,33 @@ code .<!DOCTYPE html>
 <script src="js/app.js"></script>
 
 <!-- ── Accessibility Voice Greeting ── -->
-<div id="a11y-overlay" role="dialog" aria-modal="true"
-     aria-labelledby="a11y-title"
-     style="display:none; position:fixed; inset:0;
-            background:rgba(0,0,0,0.78); z-index:9999;
-            align-items:center; justify-content:center;">
-  <div style="background:#fff; border-radius:14px; padding:36px;
-              max-width:460px; width:90%; text-align:center;
-              box-shadow:0 8px 32px rgba(0,0,0,0.3);" lang="bn">
+<!-- ── Accessibility Voice Greeting ── -->
+<div id="a11y-overlay" role="dialog" aria-modal="true" aria-labelledby="a11y-title"
+     style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:9999; align-items:center; justify-content:center; cursor:pointer;">
+  
+  <div style="background:#fff; border-radius:14px; padding:36px; max-width:460px; width:90%; text-align:center; box-shadow:0 8px 32px rgba(0,0,0,0.3);" lang="bn">
+    
+    <!-- State 1: Tap to Start (Visible initially) -->
+    <div id="a11y-step-1">
+      <div style="font-size:3rem; margin-bottom:12px; color:#0f5c3f;">👆</div>
+      <h2 style="font-size:1.4rem; font-weight:700; color:#1a1a1a;">শুরু করতে স্ক্রিনে একবার ট্যাপ করুন</h2>
+      <p style="font-size:1rem; color:#555;">Tap anywhere on the screen to start</p>
+    </div>
 
-    <div style="font-size:2.5rem; margin-bottom:12px;">🎙️</div>
-
-    <h2 id="a11y-title"
-        style="font-size:1.15rem; font-weight:700;
-               margin-bottom:8px; color:#1a1a1a;">
-      আপনি কি দৃষ্টি প্রতিবন্ধী বা শারীরিকভাবে অক্ষম?
-    </h2>
-
-    <p style="font-size:0.9rem; color:#555; margin-bottom:6px;">
-      Are you visually impaired or disabled, and do you require
-      an AI assistant voice to speak with you?
-    </p>
-
-    <p id="a11y-status"
-       style="font-size:0.85rem; color:#0f5c3f;
-              min-height:20px; margin-bottom:16px;">
-    </p>
-
-    <div style="display:flex; gap:14px; justify-content:center;">
-      <button id="a11y-yes"
-              onclick="a11yYes()"
-              style="background:#0f5c3f; color:#fff; border:none;
-                     border-radius:8px; padding:13px 36px;
-                     font-size:1rem; cursor:pointer;
-                     min-width:120px;">
-        হ্যাঁ / Yes
-      </button>
-      <button id="a11y-no"
-              onclick="a11yNo()"
-              style="background:#f0f0f0; color:#333; border:none;
-                     border-radius:8px; padding:13px 36px;
-                     font-size:1rem; cursor:pointer;
-                     min-width:120px;">
-        না / No
-      </button>
+    <!-- State 2: The actual questions (Hidden initially) -->
+    <div id="a11y-step-2" style="display:none;">
+      <div style="font-size:2.5rem; margin-bottom:12px;">🎙️</div>
+      <h2 id="a11y-title" style="font-size:1.15rem; font-weight:700; margin-bottom:8px; color:#1a1a1a;">
+        আপনি কি দৃষ্টি প্রতিবন্ধী বা শারীরিকভাবে অক্ষম?
+      </h2>
+      <p style="font-size:0.9rem; color:#555; margin-bottom:6px;">
+        Are you visually impaired or disabled, and do you require an AI assistant voice to speak with you?
+      </p>
+      <p id="a11y-status" style="font-size:0.85rem; color:#0f5c3f; min-height:20px; margin-bottom:16px; font-weight:bold;"></p>
+      <div style="display:flex; gap:14px; justify-content:center;">
+        <button id="a11y-yes" onclick="event.stopPropagation(); a11yYes();" style="background:#0f5c3f; color:#fff; border:none; border-radius:8px; padding:13px 36px; font-size:1rem; cursor:pointer; min-width:120px;">হ্যাঁ / Yes</button>
+        <button id="a11y-no" onclick="event.stopPropagation(); a11yNo();" style="background:#f0f0f0; color:#333; border:none; border-radius:8px; padding:13px 36px; font-size:1rem; cursor:pointer; min-width:120px;">না / No</button>
+      </div>
     </div>
 
   </div>
@@ -476,37 +459,30 @@ code .<!DOCTYPE html>
 
 <script>
 (function () {
-
-  // ── Show the overlay once per browser session ──────────────────
   window.addEventListener('load', function () {
     if (!sessionStorage.getItem('a11y-answered')) {
       showOverlay();
     }
   });
 
-function showOverlay() {
-  var el = document.getElementById('a11y-overlay');
-  el.style.display = 'flex';
+  function showOverlay() {
+    var overlay = document.getElementById('a11y-overlay');
+    overlay.style.display = 'flex';
 
-  // Speak immediately when overlay appears
-  // The overlay itself counts as page content loading
-  setTimeout(function () {
-    speakGreeting();
-  }, 500);
-
-  // Backup — also speak when user moves mouse or touches screen
-  // This unlocks audio in Chrome which blocks autoplay
-  function unlockAndSpeak() {
-    document.removeEventListener('mousemove', unlockAndSpeak);
-    document.removeEventListener('touchstart', unlockAndSpeak);
-    document.removeEventListener('keydown', unlockAndSpeak);
-    speakGreeting();
+    // When the user taps ANYWHERE on the screen, we have a user gesture!
+    overlay.addEventListener('click', function unlockAudio() {
+      // 1. Hide the "Tap to start" message
+      document.getElementById('a11y-step-1').style.display = 'none';
+      // 2. Show the actual questions
+      document.getElementById('a11y-step-2').style.display = 'block';
+      // 3. Reset the cursor since the whole screen is no longer a button
+      overlay.style.cursor = 'default';
+      // 4. Speak the greeting legally!
+      speakGreeting();
+      // 5. Remove this listener so it doesn't fire again
+      overlay.removeEventListener('click', unlockAudio);
+    });
   }
-
-  document.addEventListener('mousemove', unlockAndSpeak, { once: true });
-  document.addEventListener('touchstart', unlockAndSpeak, { once: true });
-  document.addEventListener('keydown', unlockAndSpeak, { once: true });
-}
 
   // ── Text to speech ─────────────────────────────────────────────
   function speak(text, onEnd) {
@@ -523,9 +499,7 @@ function showOverlay() {
   function speakGreeting() {
     setStatus('বলছি…');
     speak(
-      'আপনি কি দৃষ্টি প্রতিবন্ধী বা শারীরিকভাবে অক্ষম? ' +
-      'আপনার কি একটি ভয়েস সহকারী প্রয়োজন? ' +
-      'হ্যাঁ বলুন, অথবা না বলুন।',
+      'আপনি কি দৃষ্টি প্রতিবন্ধী বা শারীরিকভাবে অক্ষম? আপনার কি একটি ভয়েস সহকারী প্রয়োজন? হ্যাঁ বলুন, অথবা না বলুন।',
       function () {
         startListening();
       }
@@ -536,8 +510,6 @@ function showOverlay() {
   function startListening() {
     var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
     if (!SR) {
-      // Browser does not support speech recognition
-      // Buttons still work — just no voice detection
       setStatus('বাটনে চাপুন / Press a button');
       return;
     }
@@ -556,12 +528,7 @@ function showOverlay() {
       for (var i = 0; i < e.results[0].length; i++) {
         transcript += e.results[0][i].transcript.toLowerCase();
       }
-      if (
-        transcript.includes('হ্যাঁ') ||
-        transcript.includes('ha')    ||
-        transcript.includes('yes')   ||
-        transcript.includes('yeah')
-      ) {
+      if (transcript.includes('হ্যাঁ') || transcript.includes('ha') || transcript.includes('yes') || transcript.includes('yeah')) {
         a11yYes();
       } else {
         a11yNo();
@@ -586,7 +553,7 @@ function showOverlay() {
     if (el) el.style.display = 'none';
   }
 
-  // ── Button handlers — must be global ──────────────────────────
+  // ── Button handlers ──────────────────────────
   window.a11yYes = function () {
     sessionStorage.setItem('a11y-answered', 'yes');
     sessionStorage.setItem('voice-mode',    'true');
@@ -598,8 +565,8 @@ function showOverlay() {
     sessionStorage.setItem('a11y-answered', 'no');
     sessionStorage.setItem('voice-mode',    'false');
     hideOverlay();
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
   };
-
 })();
 </script>
 
