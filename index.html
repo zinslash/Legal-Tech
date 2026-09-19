@@ -423,5 +423,170 @@ code .<!DOCTYPE html>
 
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="js/app.js"></script>
+
+<!-- ── Accessibility Voice Greeting ── -->
+<div id="a11y-overlay" role="dialog" aria-modal="true"
+     aria-labelledby="a11y-title"
+     style="display:none; position:fixed; inset:0;
+            background:rgba(0,0,0,0.78); z-index:9999;
+            align-items:center; justify-content:center;">
+  <div style="background:#fff; border-radius:14px; padding:36px;
+              max-width:460px; width:90%; text-align:center;
+              box-shadow:0 8px 32px rgba(0,0,0,0.3);" lang="bn">
+
+    <div style="font-size:2.5rem; margin-bottom:12px;">🎙️</div>
+
+    <h2 id="a11y-title"
+        style="font-size:1.15rem; font-weight:700;
+               margin-bottom:8px; color:#1a1a1a;">
+      আপনি কি দৃষ্টি প্রতিবন্ধী বা শারীরিকভাবে অক্ষম?
+    </h2>
+
+    <p style="font-size:0.9rem; color:#555; margin-bottom:6px;">
+      Are you visually impaired or disabled, and do you require
+      an AI assistant voice to speak with you?
+    </p>
+
+    <p id="a11y-status"
+       style="font-size:0.85rem; color:#0f5c3f;
+              min-height:20px; margin-bottom:16px;">
+    </p>
+
+    <div style="display:flex; gap:14px; justify-content:center;">
+      <button id="a11y-yes"
+              onclick="a11yYes()"
+              style="background:#0f5c3f; color:#fff; border:none;
+                     border-radius:8px; padding:13px 36px;
+                     font-size:1rem; cursor:pointer;
+                     min-width:120px;">
+        হ্যাঁ / Yes
+      </button>
+      <button id="a11y-no"
+              onclick="a11yNo()"
+              style="background:#f0f0f0; color:#333; border:none;
+                     border-radius:8px; padding:13px 36px;
+                     font-size:1rem; cursor:pointer;
+                     min-width:120px;">
+        না / No
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function () {
+
+  // ── Show the overlay once per browser session ──────────────────
+  window.addEventListener('load', function () {
+    if (!sessionStorage.getItem('a11y-answered')) {
+      showOverlay();
+    }
+  });
+
+  function showOverlay() {
+    var el = document.getElementById('a11y-overlay');
+    el.style.display = 'flex';
+    // Small delay so the page loads first
+    setTimeout(function () {
+      speakGreeting();
+    }, 800);
+  }
+
+  // ── Text to speech ─────────────────────────────────────────────
+  function speak(text, onEnd) {
+    if (!window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang  = 'bn-BD';
+    u.rate  = 0.82;
+    u.pitch = 1;
+    if (onEnd) u.onend = onEnd;
+    window.speechSynthesis.speak(u);
+  }
+
+  function speakGreeting() {
+    setStatus('বলছি…');
+    speak(
+      'আপনি কি দৃষ্টি প্রতিবন্ধী বা শারীরিকভাবে অক্ষম? ' +
+      'আপনার কি একটি ভয়েস সহকারী প্রয়োজন? ' +
+      'হ্যাঁ বলুন, অথবা না বলুন।',
+      function () {
+        startListening();
+      }
+    );
+  }
+
+  // ── Speech recognition ─────────────────────────────────────────
+  function startListening() {
+    var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) {
+      // Browser does not support speech recognition
+      // Buttons still work — just no voice detection
+      setStatus('বাটনে চাপুন / Press a button');
+      return;
+    }
+
+    var rec = new SR();
+    rec.lang        = 'bn-BD';
+    rec.continuous  = false;
+    rec.maxAlternatives = 3;
+
+    rec.onstart = function () {
+      setStatus('🎙️ শুনছি… / Listening…');
+    };
+
+    rec.onresult = function (e) {
+      var transcript = '';
+      for (var i = 0; i < e.results[0].length; i++) {
+        transcript += e.results[0][i].transcript.toLowerCase();
+      }
+      if (
+        transcript.includes('হ্যাঁ') ||
+        transcript.includes('ha')    ||
+        transcript.includes('yes')   ||
+        transcript.includes('yeah')
+      ) {
+        a11yYes();
+      } else {
+        a11yNo();
+      }
+    };
+
+    rec.onerror = function () {
+      setStatus('বাটনে চাপুন / Press a button');
+    };
+
+    rec.start();
+  }
+
+  // ── Helpers ────────────────────────────────────────────────────
+  function setStatus(msg) {
+    var el = document.getElementById('a11y-status');
+    if (el) el.textContent = msg;
+  }
+
+  function hideOverlay() {
+    var el = document.getElementById('a11y-overlay');
+    if (el) el.style.display = 'none';
+  }
+
+  // ── Button handlers — must be global ──────────────────────────
+  window.a11yYes = function () {
+    sessionStorage.setItem('a11y-answered', 'yes');
+    sessionStorage.setItem('voice-mode',    'true');
+    hideOverlay();
+    speak('ঠিক আছে। ভয়েস মোড চালু হয়েছে। আপনাকে স্বাগতম।');
+  };
+
+  window.a11yNo = function () {
+    sessionStorage.setItem('a11y-answered', 'no');
+    sessionStorage.setItem('voice-mode',    'false');
+    hideOverlay();
+  };
+
+})();
+</script>
+
 </body>
 </html>
