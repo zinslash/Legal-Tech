@@ -499,11 +499,34 @@ code .<!DOCTYPE html>
   function speakGreeting() {
     setStatus('বলছি…');
     speak(
-      'আপনি কি দৃষ্টি প্রতিবন্ধী বা শারীরিকভাবে অক্ষম? আপনার কি একটি ভয়েস সহকারী প্রয়োজন? হ্যাঁ বলুন, অথবা না বলুন।',
+      'Are you visually impaired or disabled? Do you require an AI assistant voice to speak with you? Say yes, or say no.',
       function () {
         startListening();
       }
     );
+  }
+
+function speakGreeting() {
+    setStatus('বলছি…');
+    
+    // Attempt to play the pre-recorded MP3
+    var audio = new Audio('audio/greeting.mp3');
+    
+    audio.play().then(function() {
+      // Audio played successfully! Start listening when it finishes.
+      audio.onended = function() {
+        startListening();
+      };
+    }).catch(function(error) {
+      // Backup: If the MP3 is missing or blocked, fall back to browser TTS
+      console.log("Audio file failed, falling back to browser TTS.");
+      speak(
+        'আপনি কি দৃষ্টি প্রতিবন্ধী বা শারীরিকভাবে অক্ষম? হ্যাঁ বলুন, অথবা না বলুন।',
+        function () {
+          startListening();
+        }
+      );
+    });
   }
 
   // ── Speech recognition ─────────────────────────────────────────
