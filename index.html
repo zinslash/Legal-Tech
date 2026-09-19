@@ -484,14 +484,29 @@ code .<!DOCTYPE html>
     }
   });
 
-  function showOverlay() {
-    var el = document.getElementById('a11y-overlay');
-    el.style.display = 'flex';
-    // Small delay so the page loads first
-    setTimeout(function () {
-      speakGreeting();
-    }, 800);
+function showOverlay() {
+  var el = document.getElementById('a11y-overlay');
+  el.style.display = 'flex';
+
+  // Speak immediately when overlay appears
+  // The overlay itself counts as page content loading
+  setTimeout(function () {
+    speakGreeting();
+  }, 500);
+
+  // Backup — also speak when user moves mouse or touches screen
+  // This unlocks audio in Chrome which blocks autoplay
+  function unlockAndSpeak() {
+    document.removeEventListener('mousemove', unlockAndSpeak);
+    document.removeEventListener('touchstart', unlockAndSpeak);
+    document.removeEventListener('keydown', unlockAndSpeak);
+    speakGreeting();
   }
+
+  document.addEventListener('mousemove', unlockAndSpeak, { once: true });
+  document.addEventListener('touchstart', unlockAndSpeak, { once: true });
+  document.addEventListener('keydown', unlockAndSpeak, { once: true });
+}
 
   // ── Text to speech ─────────────────────────────────────────────
   function speak(text, onEnd) {
