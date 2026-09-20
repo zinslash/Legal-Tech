@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LegalBridge — UDC Assisted Intake</title>
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .offline-banner { display: none; background: #ffcc00; color: #333; padding: 10px; text-align: center; font-weight: bold; }
+    .offline-mode .offline-banner { display: block; }
+  </style>
+</head>
+<body>
+
+  <!-- OFFLINE STATUS BANNER -->
+  <div id="connection-banner" class="offline-banner">
+    ⚠️ You are currently OFFLINE. Applications will be saved locally and synced automatically when internet returns.
+  </div>
+
+  <div class="container mt-5" style="max-width: 600px;">
+    <h2>UDC Assisted Intake Portal</h2>
+    <p class="text-muted">Recording application for non-digital or non-Bangla speaking citizens.</p>
+
+    <!-- STATUS MESSAGES -->
+    <div id="status-message" class="alert d-none"></div>
+
+    <form id="udc-form">
+      <div class="mb-3">
+        <label class="form-label">Applicant Name (Citizen)</label>
+        <input type="text" class="form-control" id="applicantName" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Case Description (Translated to Bangla)</label>
+        <textarea class="form-control" id="rawNarrative" rows="4" required></textarea>
+      </div>
+
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="proxyConsent" required>
+        <label class="form-check-label">I (UDC Entrepreneur) confirm the citizen has given consent to submit this data on their behalf.</label>
+      </div>
+
+      <button type="submit" class="btn btn-lb-primary w-100" id="submitBtn">Submit Application</button>
+    </form>
+
+    <div class="mt-4 p-3 bg-light rounded d-none" id="queue-container">
+      <h5>Offline Queue</h5>
+      <ul id="offline-queue-list"></ul>
+      <button class="btn btn-sm btn-outline-success mt-2" onclick="syncOfflineData()">Force Sync Now</button>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('udc-form');
+    const submitBtn = document.getElementById('submitBtn');
+    const statusMsg = document.getElementById('status-message');
+    const queueContainer = document.getElementById('queue-container');
+    const queueList = document.getElementById('offline-queue-list');
+
+    // T9: Generate a UUID for offline syncing to prevent duplicates
+    function generateUUID() {
+      return crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substring(2) + Date.now().toString(36);
+    }
+
+    // Check Network Status
+    function updateOnlineStatus() {
+      if (navigator.onLine) {
+        document.body.classList.remove('offline-mode');
+        syncOfflineData(); // Auto-sync when internet comes back
+      } else {
+        document.body.classList.add('offline-mode');
+      }
+    }
+
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+    updateOnlineStatus(); // Initial check
+
+    // Render the Offline Queue UI
+    function renderQueue() {
+      const queue = JSON.parse(localStorage.getItem('udcOfflineQueue')) || [];
+      queueList.innerHTML = '';
+      if (queue.length > 0) {
+        queueContainer.classList.remove('d-none');
+        queue.forEach(item => {
+          const li = document.createElement('li');
+          li.textContent = `${item.applicant_name} (Pending Sync)`;
+          queueList.appendChild(li);
+        });
+      } else {
+        queueContainer.classList.add('d-none');
+      }
+    }
+
+    // Handle Form Submission
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.disabled = true;
+
+      const payload = {
+        offline_uuid: generateUUID(), // CRITICAL for T9 Duplicate Prevention
+        applicant_name: document.getElementById('applicantName').value,
+        raw_narrative: document.getElementById('rawNarrative').value,
+        is_proxy: true,
+        proxy_name: "UDC Entrepreneur",
+        intake_source: "udc_assisted"
+      };
+
+      if (!navigator.onLine) {
+        // Save Locally if Offline
+        const queue = JSON.parse(localStorage.getItem('udcOfflineQueue')) || [];
+        queue.push(payload);
+        localStorage.setItem('udcOfflineQueue', JSON.stringify(queue));
+        
+        showMessage("Saved offline. Will sync when connection returns.", "alert-warning");
+        form.reset();
+        renderQueue();
+        submitBtn.disabled = false;
+      } else {
+        // Send to Netlify API if Online
+        await sendDataToAPI(payload);
+      }
+    });
+
+    // Send Data to the Netlify Backend
+    async function sendDataToAPI(payload, isSyncing = false) {
+      try {
+        statusMsg.className = "alert alert-info";
+        statusMsg.textContent = "Sending to server...";
+
+        const response = await fetch('/.netlify/functions/create-application', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          showMessage(`Success! Application ID: ${data.application_number}`, "alert-success");
+          if (!isSyncing) form.reset();
+          return true; // Success
+        } else {
+          throw new Error(data.error || "Server error");
+        }
+      } catch (error) {
+        showMessage(`Error: ${error.message}`, "alert-danger");
+        return false; // Failed
+      } finally {
+        submitBtn.disabled = false;
+      }
+    }
+
+    // Sync Offline Queue
+    async function syncOfflineData() {
+      const queue = JSON.parse(localStorage.getItem('udcOfflineQueue')) || [];
+      if (queue.length === 0) return;
+
+      let remainingQueue = [];
+      for (const payload of queue) {
+        const success = await sendDataToAPI(payload, true);
+        if (!success) remainingQueue.push(payload); // Keep it if it failed
+      }
+
+      localStorage.setItem('udcOfflineQueue', JSON.stringify(remainingQueue));
+      renderQueue();
+    }
+
+    // Helper: Show UI Messages
+    function showMessage(msg, type) {
+      statusMsg.textContent = msg;
+      statusMsg.className = `alert ${type}`;
+      statusMsg.classList.remove('d-none');
+      setTimeout(() => statusMsg.classList.add('d-none'), 5000);
+    }
+
+    renderQueue(); // Load queue on page load
+  </script>
+</body>
+</html>
