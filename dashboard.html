@@ -318,5 +318,63 @@
 
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="js/app.js"></script>
+
+<script>
+  async function fetchApplications() {
+    const tbody = document.getElementById('caseTableBody');
+    tbody.innerHTML = '<tr><td colspan="10" class="text-center p-4">Loading pending applications from database...</td></tr>';
+    
+    try {
+      const response = await fetch('/.netlify/functions/get-applications');
+      const applications = await response.json();
+
+      if (!applications || applications.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="10" class="text-center p-4">No pending applications found.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = ''; // Clear loading text
+      
+      applications.forEach(app => {
+        // Calculate days since submission
+        const createdDate = new Date(app.created_at);
+        const diffDays = Math.max(0, Math.floor((new Date() - createdDate) / (1000 * 60 * 60 * 24)));
+        const displayDays = diffDays === 0 ? 'Today' : `${diffDays}d`;
+
+        // Format source and proxy badges (Addresses G2: Provenance)
+        let sourceBadge = `<span class="badge bg-secondary">${app.intake_source}</span>`;
+        if (app.is_proxy) {
+            sourceBadge += `<br><span class="badge bg-warning text-dark mt-1" style="font-size: 0.72rem;">Proxy: ${app.proxy_name}</span>`;
+        }
+
+        // Create the 10-column table row matching your HTML structure
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="fw-bold">${app.application_number}</td>
+          <td><i class="bi bi-geo-alt text-body-secondary me-1"></i>${app.applicant_name}</td>
+          <td><span class="lb-pill lb-pill-risk-low">Low</span></td>
+          <td><span class="lb-pill lb-pill-risk-low">Low</span></td>
+          <td><span class="lb-pill lb-pill-risk-low">Low</span></td>
+          <td style="line-height:1.2;">${sourceBadge}</td>
+          <td>Standard</td>
+          <td><span class="badge bg-light text-dark border">Pending</span></td>
+          <td>${displayDays}</td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-lb-primary">Review & Accept</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    } catch (error) {
+      console.error("Error fetching applications:", error);
+      tbody.innerHTML = '<tr><td colspan="10" class="text-center text-danger p-4">Error loading data.</td></tr>';
+    }
+  }
+
+  // Load live data as soon as the page opens
+  document.addEventListener('DOMContentLoaded', fetchApplications);
+</script>
+
+
 </body>
 </html>
