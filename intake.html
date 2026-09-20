@@ -66,17 +66,15 @@
       </div>
 
       <!-- OFFLINE / UDC MODE (P1.8) -->
-      <div class="lb-card p-3 mb-5">
-        <div class="form-check form-switch m-0">
-          <!-- FIX APPLIED HERE: Added onchange redirect -->
-          <input class="form-check-input" type="checkbox" id="offlineModeToggle" role="switch" onchange="window.location.href='udc-intake.html'">
-          <label class="form-check-label fw-semibold small" for="offlineModeToggle" data-i18n="intake_offline_label">Offline / UDC mode</label>
+      <!-- UDC OFFLINE PORTAL BUTTON -->
+      <div class="lb-card p-3 mb-5 d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3" style="border: 2px solid var(--lb-emerald-600); background-color: var(--lb-emerald-50);">
+        <div>
+          <h2 class="h6 mb-1"><i class="bi bi-laptop me-2" style="color:var(--lb-emerald-700);"></i>UDC Assisted Intake (Manual Entry)</h2>
+          <p class="small text-body-secondary mb-0">Switch to the offline-first manual form for UDC Entrepreneurs.</p>
         </div>
-        <div class="lb-offline-banner" id="offlineModeBanner" hidden aria-live="polite">
-          <p class="mb-1"><i class="bi bi-cloud-slash-fill me-2"></i><strong data-i18n="intake_offline_active">Offline mode active.</strong> <span data-i18n="intake_offline_desc">The application is being taken without an internet connection and stored on this device.</span></p>
-          <p class="mb-1 small text-body-secondary"><i class="bi bi-hourglass-split me-2"></i><span data-i18n="intake_offline_pending">3 applications pending — will sync automatically once a network is available.</span></p>
-          <p class="mb-0 small text-body-secondary"><span data-i18n="intake_offline_sync">Last sync: yesterday, 18:42</span></p>
-        </div>
+        <a href="udc-intake.html" class="btn btn-lb-primary flex-shrink-0">
+          Go to Manual UDC Form <i class="bi bi-arrow-right ms-1"></i>
+        </a>
       </div>
 
       <div class="row g-5">
