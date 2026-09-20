@@ -313,5 +313,53 @@
 
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="js/app.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', async () => {
+    // 1. Check if there is an ID in the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const caseId = urlParams.get('id');
+
+    // If no ID (e.g., clicking the static prototype button), leave Moyuri on screen
+    if (!caseId) return; 
+
+    try {
+      // 2. Fetch the live data for this specific ID
+      const response = await fetch(`/.netlify/functions/get-case?id=${caseId}`);
+      if (!response.ok) throw new Error('Failed to fetch case data');
+      const data = await response.json();
+
+      // 3. Dynamically swap the Title ID
+      const textElements = document.querySelectorAll('p, div, span');
+      textElements.forEach(el => {
+        if (el.innerHTML.includes('LB-2026-00124')) {
+          el.innerHTML = `Application ID <strong>${data.application_number}</strong>`;
+        }
+      });
+
+      // 4. Dynamically swap the Name
+      const headings = document.querySelectorAll('h1, h2, h3, h4, h5');
+      headings.forEach(h => {
+        if (h.textContent.includes('Moyuri')) {
+          h.textContent = data.applicant_name;
+        }
+      });
+
+      // 5. Swap the initial in the circle avatar
+      const avatars = document.querySelectorAll('.rounded-circle, .avatar, [style*="background"]'); 
+      avatars.forEach(a => {
+        if (a.textContent.trim() === 'M') {
+          a.textContent = data.applicant_name.charAt(0).toUpperCase();
+        }
+      });
+
+    } catch (error) {
+      console.error('Error loading dynamic case:', error);
+    }
+  });
+</script>
+
+
+
 </body>
 </html>

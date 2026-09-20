@@ -360,8 +360,9 @@
           <td><span class="badge bg-light text-dark border">Pending</span></td>
           <td>${displayDays}</td>
           <td class="text-end">
-           <button class="btn btn-sm btn-lb-primary" onclick="acceptApplication('${app.id}', this)">Review & Accept</button>
-          </td>
+  <a href="case.html?id=${app.id}" class="btn btn-sm btn-outline-primary me-2">Open File</a>
+  <button class="btn btn-sm btn-lb-primary" onclick="acceptApplication('${app.id}', this)">Accept</button>
+</td>
         `;
         tbody.appendChild(tr);
       });
