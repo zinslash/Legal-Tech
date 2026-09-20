@@ -360,7 +360,7 @@
           <td><span class="badge bg-light text-dark border">Pending</span></td>
           <td>${displayDays}</td>
           <td class="text-end">
-            <button class="btn btn-sm btn-lb-primary">Review & Accept</button>
+           <button class="btn btn-sm btn-lb-primary" onclick="acceptApplication('${app.id}', this)">Review & Accept</button>
           </td>
         `;
         tbody.appendChild(tr);
@@ -371,10 +371,45 @@
     }
   }
 
+  // The missing function that makes the button work
+  async function acceptApplication(applicationId, buttonElement) {
+    const originalText = buttonElement.innerHTML;
+    buttonElement.innerHTML = 'Processing...';
+    buttonElement.disabled = true;
+
+    try {
+      const response = await fetch('/.netlify/functions/accept-application', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: applicationId })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        alert(`Application Approved! Formal Case ID generated: ${data.case_number}`);
+        
+        // Remove the row from the table since it's no longer pending
+        const row = buttonElement.closest('tr');
+        row.remove();
+        
+        // Show empty state if queue is now clear
+        const tbody = document.getElementById('caseTableBody');
+        if (tbody.children.length === 0) {
+           tbody.innerHTML = '<tr><td colspan="10" class="text-center p-4">No pending applications found.</td></tr>';
+        }
+      } else {
+        throw new Error('Failed to accept application');
+      }
+    } catch (error) {
+      alert('Error processing application. Please try again.');
+      buttonElement.innerHTML = originalText;
+      buttonElement.disabled = false;
+    }
+  }
+
   // Load live data as soon as the page opens
   document.addEventListener('DOMContentLoaded', fetchApplications);
 </script>
-
 
 </body>
 </html>
