@@ -29,13 +29,12 @@
           <li class="nav-item"><a class="nav-link" data-page="safety.html" href="safety.html">Safety</a></li>
           <li class="nav-item"><a class="nav-link" data-page="dashboard.html" href="dashboard.html">DLAO Dashboard</a></li>
           <li class="nav-item"><a class="nav-link" data-page="mediation.html" href="mediation.html">Mediation</a></li>
-          <li class="nav-item"><a class="nav-link" data-page="case.html" href="case.html">Case Record</a></li>
         </ul>
         <div class="d-flex align-items-center gap-2 lb-header-actions flex-wrap">
           <button class="lb-icon-btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#a11yOffcanvas" aria-label="Open accessibility settings"><i class="bi bi-universal-access-circle"></i></button>
           <button class="btn btn-lb-ghost" id="langToggle" type="button" aria-label="Switch language" lang="bn">বাংলা</button>
           <button class="btn btn-lb-outline" type="button" data-bs-toggle="modal" data-bs-target="#emergencyModal"><i class="bi bi-telephone-fill me-1"></i>Emergency Help</button>
-          <a class="lb-icon-btn" href="case.html" aria-label="Profile"><i class="bi bi-person-circle"></i></a>
+          <a class="lb-icon-btn" href="#" aria-label="Profile"><i class="bi bi-person-circle"></i></a>
         </div>
       </div>
     </div>
@@ -69,14 +68,15 @@
               <div class="lb-case-avatar" id="dynamic-avatar">M</div>
               <div>
                 <div class="fw-semibold fs-5" style="font-family:var(--font-display);" id="dynamic-name">Moyuri</div>
-                <div class="text-body-secondary small"><i class="bi bi-geo-alt me-1"></i>Kalai, Joypurhat</div>
+                <div class="text-body-secondary small"><i class="bi bi-geo-alt me-1"></i><span id="dynamic-office">Joypurhat District Court</span></div>
               </div>
             </div>
             <div class="lb-case-meta-row"><span class="lb-case-meta-label">Status</span><span class="lb-case-meta-value">Human Verification Pending</span></div>
-            <div class="lb-case-meta-row"><span class="lb-case-meta-label">Case type</span><span class="lb-case-meta-value">Standard Application</span></div>
+            <div class="lb-case-meta-row"><span class="lb-case-meta-label">Victim NID</span><span class="lb-case-meta-value" id="dynamic-nid">Not provided</span></div>
+            <div class="lb-case-meta-row"><span class="lb-case-meta-label">Safe Phone</span><span class="lb-case-meta-value" id="dynamic-phone">017XX-XXXXXX</span></div>
             <div class="lb-case-meta-row"><span class="lb-case-meta-label">Information source</span><span class="lb-case-meta-value" id="dynamic-source">Third-party — Ripon (brother)</span></div>
-            <div class="lb-case-meta-row"><span class="lb-case-meta-label">Safe contact window</span><span class="lb-case-meta-value">Standard hours</span></div>
-            <div class="lb-case-meta-row"><span class="lb-case-meta-label">Recommended priority</span><span class="lb-case-meta-value lb-pill lb-pill-risk-low">Standard review</span></div>
+            <div class="lb-case-meta-row"><span class="lb-case-meta-label">Special Conditions / Threat</span><span class="lb-case-meta-value text-danger fw-semibold" id="dynamic-threat">Standard review</span></div>
+            <div class="lb-case-meta-row"><span class="lb-case-meta-label">Case Description</span><span class="lb-case-meta-value small text-body-secondary" id="dynamic-desc">No description provided yet.</span></div>
           </div>
         </div>
 
@@ -96,9 +96,9 @@
 
             <hr class="my-3">
             <h3 class="h6 mb-2">Consent status</h3>
-            <ul class="list-unstyled small d-flex flex-column gap-2 mb-0">
+            <ul class="list-unstyled small d-flex flex-column gap-2 mb-0" id="consent-list">
               <li><i class="bi bi-check-circle-fill text-success me-2"></i>Submission consented via intake portal</li>
-              <li><i class="bi bi-x-circle-fill text-danger-emphasis me-2"></i>Formal proxy consent not yet recorded</li>
+              <li><i class="bi bi-x-circle-fill text-danger-emphasis me-2"></i>Formal proxy consent recorded</li>
             </ul>
 
             <hr class="my-3">
@@ -245,26 +245,31 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', async () => {
-    // 1. Check if the URL has an ID (e.g., case.html?id=xyz)
     const urlParams = new URLSearchParams(window.location.search);
     const caseId = urlParams.get('id');
 
-    // If no ID, stop here and show the Moyuri mockup.
     if (!caseId) return; 
 
     try {
-      // 2. Fetch the specific case from your Netlify API
       const response = await fetch(`/.netlify/functions/get-case?id=${caseId}`);
       if (!response.ok) throw new Error('Network response was not ok');
       const data = await response.json();
 
-      // 3. Inject the live data directly into the elements by ID
-      document.getElementById('dynamic-case-id').textContent = data.application_number;
-      document.getElementById('dynamic-name').textContent = data.applicant_name;
-      document.getElementById('dynamic-avatar').textContent = data.applicant_name.charAt(0).toUpperCase();
+      // Dynamically populate fields with real database values
+      document.getElementById('dynamic-case-id').textContent = data.application_number || 'LB-2026-XXXX';
+      document.getElementById('dynamic-name').textContent = data.applicant_name || 'Unknown Citizen';
+      document.getElementById('dynamic-avatar').textContent = (data.applicant_name || 'U').charAt(0).toUpperCase();
+      
+      document.getElementById('dynamic-office').textContent = data.nearest_office || 'District Legal Aid Office';
+      document.getElementById('dynamic-nid').textContent = data.nid || 'Not provided';
+      document.getElementById('dynamic-phone').textContent = data.phone || 'Not provided';
+      document.getElementById('dynamic-threat').textContent = data.special_condition || 'Standard review';
+      document.getElementById('dynamic-desc').textContent = data.case_description || 'No description provided.';
 
-      let sourceText = data.intake_source;
-      if (data.is_proxy) sourceText += ` (Proxy: ${data.proxy_name || 'Unknown'})`;
+      let sourceText = data.intake_source === 'udc_assisted' ? 'UDC Assisted Portal' : (data.intake_source || 'Direct');
+      if (data.is_proxy && data.proxy_name) {
+        sourceText = `Proxy / Third-Party — ${data.proxy_name}`;
+      }
       document.getElementById('dynamic-source').textContent = sourceText;
 
     } catch (error) {
