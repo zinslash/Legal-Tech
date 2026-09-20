@@ -68,7 +68,8 @@
       <!-- OFFLINE / UDC MODE (P1.8) -->
       <div class="lb-card p-3 mb-5">
         <div class="form-check form-switch m-0">
-          <input class="form-check-input" type="checkbox" id="offlineModeToggle" role="switch">
+          <!-- FIX APPLIED HERE: Added onchange redirect -->
+          <input class="form-check-input" type="checkbox" id="offlineModeToggle" role="switch" onchange="window.location.href='udc-intake.html'">
           <label class="form-check-label fw-semibold small" for="offlineModeToggle" data-i18n="intake_offline_label">Offline / UDC mode</label>
         </div>
         <div class="lb-offline-banner" id="offlineModeBanner" hidden aria-live="polite">
