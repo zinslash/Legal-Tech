@@ -320,8 +320,10 @@
 <script src="js/app.js"></script>
 
 <script>
-  async function fetchApplications() {
+  document.addEventListener('DOMContentLoaded', async () => {
     const tbody = document.getElementById('caseTableBody');
+    const mobileList = document.getElementById('caseMobileList'); // Targeting the mobile cards
+
     tbody.innerHTML = '<tr><td colspan="10" class="text-center p-4">Loading pending applications from database...</td></tr>';
     
     try {
@@ -330,24 +332,24 @@
 
       if (!applications || applications.length === 0) {
         tbody.innerHTML = '<tr><td colspan="10" class="text-center p-4">No pending applications found.</td></tr>';
+        mobileList.innerHTML = ''; // Clear mobile list if empty
         return;
       }
 
-      tbody.innerHTML = ''; // Clear loading text
+      tbody.innerHTML = ''; 
+      mobileList.innerHTML = ''; // This wipes out the fake js/app.js mock cards!
       
       applications.forEach(app => {
-        // Calculate days since submission
         const createdDate = new Date(app.created_at);
         const diffDays = Math.max(0, Math.floor((new Date() - createdDate) / (1000 * 60 * 60 * 24)));
         const displayDays = diffDays === 0 ? 'Today' : `${diffDays}d`;
 
-        // Format source and proxy badges (Addresses G2: Provenance)
         let sourceBadge = `<span class="badge bg-secondary">${app.intake_source}</span>`;
         if (app.is_proxy) {
             sourceBadge += `<br><span class="badge bg-warning text-dark mt-1" style="font-size: 0.72rem;">Proxy: ${app.proxy_name}</span>`;
         }
 
-        // Create the 10-column table row matching your HTML structure
+        // 1. Build the Live Desktop Table Row
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td class="fw-bold">${app.application_number}</td>
@@ -360,19 +362,39 @@
           <td><span class="badge bg-light text-dark border">Pending</span></td>
           <td>${displayDays}</td>
           <td class="text-end">
-  <a href="case.html?id=${app.id}" class="btn btn-sm btn-outline-primary me-2">Open File</a>
-  <button class="btn btn-sm btn-lb-primary" onclick="acceptApplication('${app.id}', this)">Accept</button>
-</td>
+            <a href="case.html?id=${app.id}" class="btn btn-sm btn-outline-primary me-2">Open File</a>
+            <button class="btn btn-sm btn-lb-primary" onclick="acceptApplication('${app.id}', this)">Accept</button>
+          </td>
         `;
         tbody.appendChild(tr);
+
+        // 2. Build the Live Mobile Cards (Overwriting the mock data)
+        const card = document.createElement('div');
+        card.className = 'lb-card p-3 mb-3';
+        card.innerHTML = `
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <div>
+              <h3 class="h6 mb-0">${app.applicant_name}</h3>
+              <div class="text-body-secondary small">${app.application_number}</div>
+            </div>
+            <span class="badge bg-light text-dark border">Pending</span>
+          </div>
+          <div class="mt-2 mb-3">
+             ${sourceBadge}
+          </div>
+          <div class="d-grid gap-2">
+             <a href="case.html?id=${app.id}" class="btn btn-outline-primary btn-sm">Review case</a>
+             <button class="btn btn-lb-primary btn-sm" onclick="acceptApplication('${app.id}', this)">Accept Application</button>
+          </div>
+        `;
+        mobileList.appendChild(card);
       });
     } catch (error) {
       console.error("Error fetching applications:", error);
       tbody.innerHTML = '<tr><td colspan="10" class="text-center text-danger p-4">Error loading data.</td></tr>';
     }
-  }
+  });
 
-  // The missing function that makes the button work
   async function acceptApplication(applicationId, buttonElement) {
     const originalText = buttonElement.innerHTML;
     buttonElement.innerHTML = 'Processing...';
@@ -389,15 +411,8 @@
         const data = await response.json();
         alert(`Application Approved! Formal Case ID generated: ${data.case_number}`);
         
-        // Remove the row from the table since it's no longer pending
-        const row = buttonElement.closest('tr');
-        row.remove();
-        
-        // Show empty state if queue is now clear
-        const tbody = document.getElementById('caseTableBody');
-        if (tbody.children.length === 0) {
-           tbody.innerHTML = '<tr><td colspan="10" class="text-center p-4">No pending applications found.</td></tr>';
-        }
+        // Force a page reload to refresh both the table and the cards
+        window.location.reload(); 
       } else {
         throw new Error('Failed to accept application');
       }
@@ -407,9 +422,6 @@
       buttonElement.disabled = false;
     }
   }
-
-  // Load live data as soon as the page opens
-  document.addEventListener('DOMContentLoaded', fetchApplications);
 </script>
 
 </body>
